@@ -24,8 +24,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
 
-    public abstract TrainingDao trainingDao();
-    public abstract ShootDao shootDao();
+    public abstract TrainingDao getTrainingDao();
+    public abstract ShootDao getShootDao();
 
     public static synchronized AppDatabase getInstance(Context context) {
         if(INSTANCE == null) {
@@ -44,4 +44,6 @@ public abstract class AppDatabase extends RoomDatabase {
             //there's nothing else to do yet
         }
     };
+
+
 }
