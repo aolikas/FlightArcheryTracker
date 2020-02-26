@@ -8,8 +8,10 @@ import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.example.flightarcherytracker.dao.ShootDao;
 import com.example.flightarcherytracker.dao.TrainingDao;
 import com.example.flightarcherytracker.db.AppDatabase;
+import com.example.flightarcherytracker.entity.Shoot;
 import com.example.flightarcherytracker.entity.Training;
 
 import org.junit.After;
@@ -33,6 +35,7 @@ public class AppDatabaseTest {
             new InstantTaskExecutorRule();
 
     private TrainingDao trainingDao;
+    private ShootDao shootDao;
     private AppDatabase db;
     private Training training1 = new Training(new Date(), 45.0,45.0);
     private Training training2 = new Training(new Date(), 48.0,95.0);
@@ -45,8 +48,8 @@ public class AppDatabaseTest {
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase.class)
                 .allowMainThreadQueries()
                 .build();
-
         trainingDao = db.getTrainingDao();
+        shootDao = db.getShootDao();
     }
 
     @After
@@ -57,10 +60,17 @@ public class AppDatabaseTest {
 
     @Test
     public void insertAndGetTraining() throws InterruptedException {
-        trainingDao.insertTraining(training1);
+        long training_id = trainingDao.insertTrainingWithId(training1);
+        Shoot shoot = new Shoot(34.9,46.8,"this is shoot",
+                45,training_id);
+        shootDao.insertShoot(shoot);
         List<Training> allTrainings = LiveDataTestUtil.getValue(trainingDao.getAllTrainings());
+        List<Shoot> allShoots = LiveDataTestUtil.getValue(shootDao.getAllShootsByTrainingId(training_id));
+
         assertEquals(allTrainings.get(0).getTrainingLat(), training1.getTrainingLat());
         assertEquals(allTrainings.get(0).getTrainingLng(), training1.getTrainingLng());
+        assertEquals(allShoots.get(0).getShootDescription(), shoot.getShootDescription());
+
     }
 
     @Test
