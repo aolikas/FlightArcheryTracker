@@ -13,11 +13,14 @@ import java.util.List;
 
 @Dao
 public interface ShootDao {
-    @Query(("select * from shoots"))
+    @Query("select * from shoots")
     LiveData<List<Shoot>> getAllShoots();
 
     @Query("select * from shoots where training_id = :training_id")
     LiveData<List<Shoot>> getAllShootsByTrainingId(long training_id);
+
+    @Query("select shoot_lat,shoot_lng from shoots where training_id = :training_id")
+    LiveData<List<Shoot>> getAllShootLatLndByTrainingId(long training_id);
 
     @Insert
     void insertShoot(Shoot shoot);

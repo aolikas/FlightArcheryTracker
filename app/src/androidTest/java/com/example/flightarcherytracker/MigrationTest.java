@@ -25,7 +25,7 @@ import java.util.Date;
 public class MigrationTest {
 
     private static final String TEST_DB_NAME = "migration_test";
-    private static final Training training1 = new Training(new Date(), 45.9, 54.89);
+
 
 
 
@@ -38,9 +38,28 @@ public class MigrationTest {
         new FrameworkSQLiteOpenHelperFactory());
     }
 
+    @Test
+    public void migrateAll() throws IOException {
+        //earliest version's db
+        SupportSQLiteDatabase db = helper.createDatabase(TEST_DB_NAME, 1);
+        db.close();
+
+      //  AppDatabase appDatabase = Room.databaseBuilder(
+        //        InstrumentationRegistry.getInstrumentation().getTargetContext(),
+          //      AppDatabase.class,
+            //    TEST_DB_NAME)
+              //  .addMigrations(ALL_MIGRATIONS).build();
+     //   appDatabase.getOpenHelper().getWritableDatabase();
+       // appDatabase.close();
+    }
 
 
 
+
+    //array of all future migration
+   // private static final Migration[] ALL_MIGRATIONS  = new Migration[] {
+            //MIGRATION_1_2, MIGRATION_2_3;
+    //}
 
 
 }
