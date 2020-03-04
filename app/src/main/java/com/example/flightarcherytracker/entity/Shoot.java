@@ -9,53 +9,62 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "shoots",
         foreignKeys = @ForeignKey(entity = Training.class,
-                parentColumns = "shoot_id",
+                parentColumns = "id",
                 childColumns = "training_id",
                 onDelete = ForeignKey.CASCADE),
         indices = {@Index("training_id")})
 public class Shoot {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "shoot_id")
-    private long shoot_id;
-    private String shoot_description;
-    private double shoot_lat;
-    private double shoot_lng;
-    private double shoot_distance;
+    private Long shootId;
+
+    @ColumnInfo(name = "shoot-description")
+    private String shootDescription;
+
+    @ColumnInfo(name = "shoot_lat")
+    private Double shootLat;
+
+    @ColumnInfo(name = "shoot_lng")
+    private Double shootLng;
+
+    @ColumnInfo(name = "shoot_distance")
+    private Double shootDistance;
+
     @ColumnInfo(name = "training_id")
-    private long training_id;
+    private Long trainingId;
 
-    public Shoot(double shoot_lat, double shoot_lng, String shoot_description,
-                 double shoot_distance, long training_id) {
-        this.shoot_lat = shoot_lat;
-        this.shoot_lng = shoot_lng;
-        this.shoot_description = shoot_description;
-        this.shoot_distance = shoot_distance;
-        this.training_id = training_id;
+    public Shoot(Double shootLat, Double shootLng, String shootDescription,
+                 Double shootDistance, Long trainingId) {
+        this.shootLat = shootLat;
+        this.shootLng = shootLng;
+        this.shootDescription = shootDescription;
+        this.shootDistance = shootDistance;
+        this.trainingId = trainingId;
     }
 
-    public long getShootId() {
-        return shoot_id;
+    public Long getShootId() {
+        return shootId;
     }
 
-    public void setShootId(long shoot_id) {
-        this.shoot_id = shoot_id;
+    public void setShootId(long shootId) {
+        this.shootId = shootId;
     }
 
-    public String getShootDescription() { return shoot_description; }
+    public String getShootDescription() { return shootDescription; }
 
-    public double getShootLatitude() {
-        return shoot_lat;
+    public Double getShootLat() {
+        return shootLat;
     }
 
-    public double getShootLongitude() {
-        return shoot_lng;
+    public Double getShootLng() {
+        return shootLng;
     }
 
-    public double getShootDistance() {
-        return shoot_distance;
+    public Double getShootDistance() {
+        return shootDistance;
     }
 
-    public long getTrainingId() {
-        return training_id;
+    public Long getTrainingId() {
+        return trainingId;
     }
 }

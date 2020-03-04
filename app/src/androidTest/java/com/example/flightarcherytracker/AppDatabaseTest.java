@@ -2,7 +2,6 @@ package com.example.flightarcherytracker;
 
 import android.content.Context;
 
-
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
@@ -20,15 +19,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
+
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class AppDatabaseTest {
-
 
     @Rule
     public TestRule rule =
@@ -57,12 +56,11 @@ public class AppDatabaseTest {
         db.close();
     }
 
-
     @Test
     public void insertAndGetTraining() throws InterruptedException {
         long training_id = trainingDao.insertTrainingWithId(training1);
         Shoot shoot = new Shoot(34.9,46.8,"this is shoot",
-                45,training_id);
+                45.9,training_id);
         shootDao.insertShoot(shoot);
         List<Training> allTrainings = LiveDataTestUtil.getValue(trainingDao.getAllTrainings());
         List<Shoot> allShoots = LiveDataTestUtil.getValue(shootDao.getAllShootsByTrainingId(training_id));
@@ -70,7 +68,6 @@ public class AppDatabaseTest {
         assertEquals(allTrainings.get(0).getTrainingLat(), training1.getTrainingLat());
         assertEquals(allTrainings.get(0).getTrainingLng(), training1.getTrainingLng());
         assertEquals(allShoots.get(0).getShootDescription(), shoot.getShootDescription());
-
     }
 
     @Test

@@ -31,6 +31,6 @@ public interface TrainingDao {
     @Query("delete from trainings")
     void deleteAllTrainings();
 
-    @Query("select * from trainings where training_id =:training_id")
-    long getTrainingById(long training_id);
+    @Query("select * from trainings where id =:trainingId")
+    long getTrainingById(long trainingId);
 }

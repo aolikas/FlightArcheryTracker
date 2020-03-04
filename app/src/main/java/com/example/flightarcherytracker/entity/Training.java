@@ -1,5 +1,7 @@
 package com.example.flightarcherytracker.entity;
 
+import android.annotation.SuppressLint;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -11,40 +13,44 @@ import com.example.flightarcherytracker.helpers.TimestampConverter;
 import java.util.Date;
 
 @Entity(tableName = "trainings")
+@SuppressLint("ParcelCreator")
 public class Training {
+
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "training_id")
-    private long training_id;
+    private Long id;
 
     @TypeConverters({TimestampConverter.class})
-    private Date training_date;
+    @ColumnInfo(name = "training_date")
+    private Date trainingDate;
 
-    private Double training_lat;
-    private Double training_lng;
+    @ColumnInfo(name = "training_lat")
+    private Double trainingLat;
+    @ColumnInfo(name = "training_lng")
+    private Double trainingLng;
 
 
-    public Training(Date training_date, Double training_lat,
-                    Double training_lng) {
-        this.training_date = training_date;
-        this.training_lat = training_lat;
-        this.training_lng = training_lng;
+    public Training(Date trainingDate, Double trainingLat,
+                    Double trainingLng) {
+        this.trainingDate = trainingDate;
+        this.trainingLat = trainingLat;
+        this.trainingLng = trainingLng;
     }
 
-    public void setTrainingId(long id) {
-        this.training_id = id;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public long getTrainingId() {
-        return training_id;
+    public Long getId() {
+        return id;
     }
 
-    public Date getTrainingDate() { return training_date; }
+    public Date getTrainingDate() { return trainingDate; }
 
     public Double getTrainingLat() {
-        return training_lat;
+        return trainingLat;
     }
 
     public Double getTrainingLng() {
-        return training_lng;
+        return trainingLng;
     }
 }

@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.RoomWarnings;
 import androidx.room.Update;
 
 import com.example.flightarcherytracker.entity.Shoot;
@@ -19,6 +20,7 @@ public interface ShootDao {
     @Query("select * from shoots where training_id = :training_id")
     LiveData<List<Shoot>> getAllShootsByTrainingId(long training_id);
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
     @Query("select shoot_lat,shoot_lng from shoots where training_id = :training_id")
     LiveData<List<Shoot>> getAllShootLatLndByTrainingId(long training_id);
 
