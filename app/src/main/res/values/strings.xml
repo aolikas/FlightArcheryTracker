@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">FlightArcheryTracker</string>
+    <string name="app_name">Flight Archery Tracker</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_title_1">Training</string>
+    <string name="fragment_title_2">Records</string>
+    <string name="button_start_training">Start training</string>
+    <string name="button_save_shoot">Save shoot</string>
+    <string name="button_start_new_training">Start New Training</string>
 </resources>

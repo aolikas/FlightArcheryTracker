@@ -1,11 +1,11 @@
 package com.example.flightarcherytracker;
 
 import androidx.annotation.UiThread;
-import androidx.room.PrimaryKey;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,45 +26,40 @@ import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
 
-
-
 @RunWith(AndroidJUnit4.class)
 public class TabLayoutTest {
 
-  private MainActivity mainActivity;
+  private MainActivity mActivity;
 
   @Rule
-    public ActivityTestRule<MainActivity> mainActivityRule =
+  public ActivityTestRule<MainActivity> mainActivityRule =
           new ActivityTestRule<>(MainActivity.class);
 
   @Before
-    public void setUp() {
-      mainActivity = mainActivityRule.getActivity();
-      assertThat(mainActivity, notNullValue());
+  public void setUp() {
+    mActivity = mainActivityRule.getActivity();
+    assertThat(mActivity, notNullValue());
   }
 
   @Test
-    public void swipePage() {
-      onView(withId(R.id.activity_main_view_pager))
-      .check(matches(isDisplayed()));
+  public void swipePage() {
+    onView(withId(R.id.activity_main_view_pager))
+            .check(matches(isDisplayed()));
 
-      onView(withId(R.id.activity_main_view_pager))
-              .perform(swipeLeft());
+    onView(withId(R.id.activity_main_view_pager))
+            .perform(swipeLeft());
   }
 
   @Test
-    public void checkTabLayoutDisplayed() {
-      onView(withId(R.id.activity_main_tab_layout))
-              .perform(click())
-              .check(matches(isDisplayed()));
+  public void checkTabLayoutDisplayed() {
+    onView(withId(R.id.activity_main_tab_layout))
+            .perform(click())
+            .check(matches(isDisplayed()));
   }
 
-  @Test
-    @UiThread
-    public void checkTabSwitch() {
-      onView(allOf(withText("test3"), isDescendantOfA(withId(R.id.activity_main_tab_layout))))
-              .perform(click())
-              .check(matches(isDisplayed()));
+  @After
+  public void tearDown()  {
+    mActivity = null;
   }
 
 }
