@@ -1,0 +1,122 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "75feaedb717786d42144f4fb06d7cdc1",
+    "entities": [
+      {
+        "tableName": "trainings",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`training_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `training_date` INTEGER, `training_lat` REAL, `training_lng` REAL)",
+        "fields": [
+          {
+            "fieldPath": "training_id",
+            "columnName": "training_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "training_date",
+            "columnName": "training_date",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "training_lat",
+            "columnName": "training_lat",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "training_lng",
+            "columnName": "training_lng",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "training_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "shoots",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`shoot_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `shoot_description` TEXT, `shoot_lat` REAL NOT NULL, `shoot_lng` REAL NOT NULL, `shoot_distance` REAL NOT NULL, `training_id` INTEGER NOT NULL, FOREIGN KEY(`training_id`) REFERENCES `trainings`(`shoot_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "shoot_id",
+            "columnName": "shoot_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shoot_description",
+            "columnName": "shoot_description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "shoot_lat",
+            "columnName": "shoot_lat",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shoot_lng",
+            "columnName": "shoot_lng",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shoot_distance",
+            "columnName": "shoot_distance",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "training_id",
+            "columnName": "training_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "shoot_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_shoots_training_id",
+            "unique": false,
+            "columnNames": [
+              "training_id"
+            ],
+            "createSql": "CREATE  INDEX `index_shoots_training_id` ON `${TABLE_NAME}` (`training_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "trainings",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "training_id"
+            ],
+            "referencedColumns": [
+              "shoot_id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"75feaedb717786d42144f4fb06d7cdc1\")"
+    ]
+  }
+}

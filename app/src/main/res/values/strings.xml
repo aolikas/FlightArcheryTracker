@@ -6,4 +6,9 @@
     <string name="button_start_training">Start training</string>
     <string name="button_save_shoot">Save shoot</string>
     <string name="button_start_new_training">Start New Training</string>
+    <string name="shoot_message_dialog_message">Here you can write same info about your shoot</string>
+    <string name="shoot_message_dialog_hint">Write here</string>
+    <string name="shoot_message_dialog_title">Save Shoot\'s information</string>
+    <string name="shoot_message_dialog_positive">Save shoot</string>
+    <string name="shoot_message_dialog_negative">Cancel</string>
 </resources>

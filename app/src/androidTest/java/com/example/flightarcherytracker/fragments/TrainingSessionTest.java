@@ -57,4 +57,6 @@ public class TrainingSessionTest {
 
         onView(withId(R.id.training_btn_save)).perform(click());
     }
+
+
 }

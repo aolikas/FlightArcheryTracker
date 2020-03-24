@@ -5,12 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".fragments.TrainingsSessionFragment">
 
-<TextView
-    android:id="@+id/training"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:text="Hello"/>
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <LinearLayout
 

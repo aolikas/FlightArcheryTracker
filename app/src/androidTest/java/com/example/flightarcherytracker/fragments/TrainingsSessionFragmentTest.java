@@ -56,10 +56,6 @@ public class TrainingsSessionFragmentTest {
 
         assertNotNull(buttonStart);
         assertNotNull(buttonSave);
-
-
-
-
     }
 
     @After

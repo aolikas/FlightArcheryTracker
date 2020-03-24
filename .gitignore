@@ -12,3 +12,7 @@
 /captures
 .externalNativeBuild
 .cxx
+/secrets.properties
+/.api_keys.xml
+
+
