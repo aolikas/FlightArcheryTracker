@@ -12,7 +12,4 @@
 /captures
 .externalNativeBuild
 .cxx
-api.properties
-
-
-
+/app/src/main/res/values/map_key.xml
