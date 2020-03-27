@@ -3,9 +3,10 @@ package com.example.flightarcherytracker.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
+
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.flightarcherytracker.R;
+import com.example.flightarcherytracker.adapters.ShootRecyclerViewAdapter;
+import com.example.flightarcherytracker.entity.Shoot;
+import com.example.flightarcherytracker.viewModel.ShootViewModel;
 
 import java.util.List;
 
@@ -36,6 +40,22 @@ public class ShootsListFragment extends DialogFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
+        final ShootRecyclerViewAdapter adapter = new ShootRecyclerViewAdapter();
+        recyclerView.setAdapter(adapter);
+
+        long trainingId = getArguments().getLong("id");
+
+        ViewModelProvider.Factory factory = ViewModelProvider.AndroidViewModelFactory
+                .getInstance(getActivity().getApplication());
+        ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity(), factory);
+        ShootViewModel shootViewModel = viewModelProvider.get(ShootViewModel.class);
+        shootViewModel.getAllShootsByTrainingId(trainingId).observe(getViewLifecycleOwner(), new Observer<List<Shoot>>() {
+            @Override
+            public void onChanged(List<Shoot> shoots) {
+                adapter.setShoots(shoots);
+            }
+        });
+        getDialog();
         return view;
     }
 }

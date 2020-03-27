@@ -92,7 +92,6 @@ public class TrainingsRecordsFragment extends Fragment {
                 fragment.show(manager, "ShootListFragment");
 
                 Toast.makeText(getContext(), R.string.shoots_list_toast, Toast.LENGTH_SHORT).show();
-
             }
         });
 
