@@ -4,16 +4,22 @@ package com.example.flightarcherytracker;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import androidx.viewpager.widget.ViewPager;
 
 
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.flightarcherytracker.adapters.ViewPagerAdapter;
@@ -61,8 +67,10 @@ public class MainActivity extends AppCompatActivity
         viewPagerAdapter.AddFragment(new TrainingsSessionFragment(), titleFragment1);
         viewPagerAdapter.AddFragment(new TrainingsRecordsFragment(), titleFragment2);
 
-
         viewPager.setOffscreenPageLimit(1);
+
+        setSupportActionBar((Toolbar) findViewById(R.id.activity_main_toolbar));
+        setTitle(R.string.app_name);
 
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -94,6 +102,44 @@ public class MainActivity extends AppCompatActivity
 
         Log.d(TAG, "onShootsInputListener: inset " + description + " " + lat + " " + lng
                 + " " + distance + " " + trainingId);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.delete_all:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle(R.string.alert_dialog_delete_all_title);
+                alertDialogBuilder.setMessage(R.string.alert_dialog_delete_all_message);
+                alertDialogBuilder.setPositiveButton(R.string.alert_dialog_delete_all_positive, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mTrainingViewModel.deleteAllTrainings();
+                    }
+                });
+
+                alertDialogBuilder.setNegativeButton(R.string.alert_dialog_delete_all_negative, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                alertDialogBuilder.show();
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }
