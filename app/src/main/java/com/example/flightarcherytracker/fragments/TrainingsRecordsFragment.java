@@ -1,26 +1,21 @@
 package com.example.flightarcherytracker.fragments;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.flightarcherytracker.R;
 import com.example.flightarcherytracker.adapters.TrainingRecyclerViewAdapter;
 import com.example.flightarcherytracker.entity.Training;
@@ -74,7 +69,26 @@ public class TrainingsRecordsFragment extends Fragment {
             }
 
             @Override
-            public void onDeleteTrainingClick(int position) {
+            public void onDeleteTrainingClick(final int position) {
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setTitle(R.string.alert_dialog_delete_title);
+                alertDialogBuilder.setMessage(R.string.alert_dialog_delete_message);
+                alertDialogBuilder.setPositiveButton(R.string.alert_dialog_delete_positive, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mTrainingViewModel.deleteTraining(adapter.getTrainingAt(position));
+                    }
+                });
+
+                alertDialogBuilder.setNegativeButton(R.string.alert_dialog_delete_negative, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                alertDialogBuilder.show();
 
             }
 
@@ -82,7 +96,7 @@ public class TrainingsRecordsFragment extends Fragment {
             public void onSeeShootRecordsClick(Training training) {
 
                 FragmentManager manager = getChildFragmentManager();
-                       // getFragmentManager();
+                // getFragmentManager();
                 long id = training.getId();
 
                 ShootsListFragment fragment = new ShootsListFragment();

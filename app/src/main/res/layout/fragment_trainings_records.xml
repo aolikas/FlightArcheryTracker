@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_records"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="12dp"
-    android:id="@+id/container_records"
     tools:context=".fragments.TrainingsRecordsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_records_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="80dp"/>
-
-
+        android:layout_marginTop="60dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
