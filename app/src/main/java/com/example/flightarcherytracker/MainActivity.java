@@ -1,6 +1,9 @@
 package com.example.flightarcherytracker;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -33,8 +36,6 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
 
-
-
     private TrainingViewModel mTrainingViewModel;
     private ShootViewModel mShootViewModel;
 
@@ -66,7 +67,6 @@ public class MainActivity extends AppCompatActivity
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        //mTrainingViewModel = ViewModelProviders.of(this).get(TrainingViewModel.class);
         mTrainingViewModel = new ViewModelProvider(this, new TrainingViewModelFactory(getApplication(), trainingId))
                 .get(TrainingViewModel.class);
         mShootViewModel = new ViewModelProvider(this, new ShootsViewModelFactory(getApplication()))
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity
 
         trainingId = mTrainingViewModel.insertTrainingWithId(currentTraining);
 
-        Log.d(TAG, "onTrainingInputListener: insert " + timestamp + " " +  lat + " " + lng);
+        Log.d(TAG, "onTrainingInputListener: insert " + timestamp + " " + lat + " " + lng);
 
         Toast.makeText(this, "Training is started saving", Toast.LENGTH_SHORT).show();
     }
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         mShootViewModel.insertShoot(currentShoot);
 
         Log.d(TAG, "onShootsInputListener: inset " + description + " " + lat + " " + lng
-                + " " + distance + " " +trainingId);
-
+                + " " + distance + " " + trainingId);
     }
+
 }

@@ -13,18 +13,18 @@ public class LatLngInterpolatorTest {
 
     LatLngInterpolator test = spy(LatLngInterpolator.class);
 
-    LatLng a = new LatLng(37.4219983,-122.084);
+    LatLng a = new LatLng(37.4219983, -122.084);
     LatLng b = new LatLng(67.4219983, 121.084);
-    LatLng expectedResult = new LatLng(1,1);
+    LatLng expectedResult = new LatLng(1, 1);
 
     private float v;
 
 
     @Test
-    public void testNotEquals () {
+    public void testNotEquals() {
         v = 1.578927F;
-       LatLng result = test.interpolate(v, a,b);
-       assertNotEquals(expectedResult, result);
+        LatLng result = test.interpolate(v, a, b);
+        assertNotEquals(expectedResult, result);
     }
 
 }

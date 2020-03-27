@@ -18,26 +18,26 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.core.IsNot.not;
+
 
 @RunWith(AndroidJUnit4.class)
 public class TrainingSessionTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> activityTestRule =
+    public ActivityTestRule<MainActivity> mActivityTestRule =
             new ActivityTestRule<>(MainActivity.class);
 
     @Before
     public void init() {
-        activityTestRule.getActivity()
+        mActivityTestRule.getActivity()
                 .getSupportFragmentManager().beginTransaction();
     }
 
     @Test
-    public void TestButton() {
+    public void TestButtonVisibilityClickable() {
         onView(withId(R.id.training_btn_start))
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
@@ -50,6 +50,7 @@ public class TrainingSessionTest {
 
         onView(withId(R.id.training_btn_start)).perform(click()).check(matches(isDisplayed()));
 
+
         onView(withId(R.id.training_btn_save))
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
@@ -57,6 +58,4 @@ public class TrainingSessionTest {
 
         onView(withId(R.id.training_btn_save)).perform(click());
     }
-
-
 }

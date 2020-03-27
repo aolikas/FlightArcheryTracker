@@ -36,12 +36,12 @@ public class AppDatabaseTest {
     private TrainingDao trainingDao;
     private ShootDao shootDao;
     private AppDatabase db;
-    private Training training1 = new Training(new Date(), 45.0,45.0);
-    private Training training2 = new Training(new Date(), 48.0,95.0);
-    private Training training3 = new Training(new Date(), 48.55,95.78);
+    private Training training1 = new Training(new Date(), 45.0, 45.0);
+    private Training training2 = new Training(new Date(), 48.0, 95.0);
+    private Training training3 = new Training(new Date(), 48.55, 95.78);
 
     @Before
-    public void createDb()  {
+    public void createDb() {
 
         Context context = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(context, AppDatabase.class)
@@ -59,8 +59,8 @@ public class AppDatabaseTest {
     @Test
     public void insertAndGetTraining() throws InterruptedException {
         long training_id = trainingDao.insertTrainingWithId(training1);
-        Shoot shoot = new Shoot(34.9,46.8,"this is shoot",
-                45.9,training_id);
+        Shoot shoot = new Shoot(34.9, 46.8, "this is shoot",
+                45.9, training_id);
         shootDao.insertShoot(shoot);
         List<Training> allTrainings = LiveDataTestUtil.getValue(trainingDao.getAllTrainings());
         List<Shoot> allShoots = LiveDataTestUtil.getValue(shootDao.getAllShootsByTrainingId(training_id));

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="12dp"
+    android:id="@+id/container_records"
     tools:context=".fragments.TrainingsRecordsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/records"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_records_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:text="Hello records" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"/>
 
-</FrameLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

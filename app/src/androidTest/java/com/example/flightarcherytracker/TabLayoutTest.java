@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeLeft;
+import static androidx.test.espresso.action.ViewActions.swipeRight;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -29,38 +30,38 @@ import static org.junit.Assert.assertThat;
 @RunWith(AndroidJUnit4.class)
 public class TabLayoutTest {
 
-  private MainActivity mActivity;
+    private MainActivity mActivity;
 
-  @Rule
-  public ActivityTestRule<MainActivity> mainActivityRule =
-          new ActivityTestRule<>(MainActivity.class);
+    @Rule
+    public ActivityTestRule<MainActivity> mainActivityRule =
+            new ActivityTestRule<>(MainActivity.class);
 
-  @Before
-  public void setUp() {
-    mActivity = mainActivityRule.getActivity();
-    assertThat(mActivity, notNullValue());
-  }
+    @Before
+    public void setUp() {
+        mActivity = mainActivityRule.getActivity();
+        assertThat(mActivity, notNullValue());
+    }
 
-  @Test
-  public void swipePage() {
-    onView(withId(R.id.activity_main_view_pager))
-            .check(matches(isDisplayed()));
+    @Test
+    public void swipePage() {
+        onView(withId(R.id.activity_main_view_pager))
+                .check(matches(isDisplayed()));
 
-    onView(withId(R.id.activity_main_view_pager))
-            .perform(swipeLeft());
-  }
+        onView(withId(R.id.activity_main_view_pager))
+                .perform(swipeRight());
+    }
 
-  @Test
-  public void checkTabLayoutDisplayed() {
-    onView(withId(R.id.activity_main_tab_layout))
-            .perform(click())
-            .check(matches(isDisplayed()));
-  }
+    @Test
+    public void checkTabLayoutDisplayed() {
+        onView(withId(R.id.activity_main_tab_layout))
+                .perform(click())
+                .check(matches(isDisplayed()));
+    }
 
-  @After
-  public void tearDown()  {
-    mActivity = null;
-  }
+    @After
+    public void tearDown() {
+        mActivity = null;
+    }
 
 }
 

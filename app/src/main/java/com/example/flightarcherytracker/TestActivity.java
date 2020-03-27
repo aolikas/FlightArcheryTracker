@@ -6,12 +6,26 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.flightarcherytracker.R;
+import com.example.flightarcherytracker.fragments.TrainingsSessionFragment;
 
-public class TestActivity extends AppCompatActivity {
+import java.util.Date;
+
+public class TestActivity extends AppCompatActivity implements TrainingsSessionFragment.TrainingListener,
+        TrainingsSessionFragment.ShootsListener {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_test);
+    }
+
+    @Override
+    public void onTrainingInputListener(Date timestamp, double lat, double lng) {
+
+    }
+
+    @Override
+    public void onShootsInputListener(double lat, double lng, String description, double distance) {
+
     }
 }

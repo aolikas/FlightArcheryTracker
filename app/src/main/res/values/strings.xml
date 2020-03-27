@@ -3,12 +3,21 @@
 
     <string name="fragment_title_1">Training</string>
     <string name="fragment_title_2">Records</string>
+
     <string name="button_start_training">Start training</string>
     <string name="button_save_shoot">Save shoot</string>
     <string name="button_start_new_training">Start New Training</string>
+
     <string name="shoot_message_dialog_message">Here you can write same info about your shoot</string>
     <string name="shoot_message_dialog_hint">Write here</string>
     <string name="shoot_message_dialog_title">Save Shoot\'s information</string>
     <string name="shoot_message_dialog_positive">Save shoot</string>
     <string name="shoot_message_dialog_negative">Cancel</string>
+
+    <string name="item_training_date">Date</string>
+    <string name="item_training_title">Training Session</string>
+    <string name="item_training_id">1</string>
+    <string name="item_training_see_map_shoots">See all shoots for training</string>
+    <string name="item_training_see_shoots">See my shoots</string>
+    <string name="item_training_delete">Delete Training</string>
 </resources>

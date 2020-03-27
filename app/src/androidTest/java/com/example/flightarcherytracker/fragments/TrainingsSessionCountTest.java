@@ -19,17 +19,19 @@ import java.util.Objects;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
-public class TrainingsSessionFragmentTest {
+public class TrainingsSessionCountTest {
 
     @Rule
     public ActivityTestRule<TestActivity> mActivityTest =
             new ActivityTestRule<>(TestActivity.class);
 
     private TestActivity mActivity = null;
+    private int mCount;
 
 
     @Before
@@ -56,6 +58,15 @@ public class TrainingsSessionFragmentTest {
 
         assertNotNull(buttonStart);
         assertNotNull(buttonSave);
+
+        //click on the button to have count null
+        onView(withId(R.id.training_btn_start)).perform(click());
+        mCount = fragment.getShootsCount();
+        assertEquals(0, mCount);
+        //click on the button one time to have count 1
+        onView(withId(R.id.training_btn_save)).perform(click());
+        mCount = fragment.getShootsCount();
+        assertEquals(1, mCount);
     }
 
     @After

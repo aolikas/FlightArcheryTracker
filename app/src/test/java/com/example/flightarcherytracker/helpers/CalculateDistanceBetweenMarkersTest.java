@@ -25,7 +25,7 @@ public class CalculateDistanceBetweenMarkersTest {
     @Test
     public void testDistanceEmptyVal() {
         expectedResult = 12.34;
-        result = CalculateDistanceBetweenMarkers.distanceTo(startLat,startLtn, endLat, endLng);
+        result = CalculateDistanceBetweenMarkers.distanceTo(startLat, startLtn, endLat, endLng);
         assertNotEquals(expectedResult, result, 0.0);
     }
 
@@ -37,10 +37,10 @@ public class CalculateDistanceBetweenMarkersTest {
     }
 
     @Test
-    public void testDistance(){
+    public void testDistance() {
         expectedResult = 255221.80906283788;
         result = CalculateDistanceBetweenMarkers.distanceTo(52.5244, 13.4105, 53.5753, 10.0153);
-        assertEquals(expectedResult, result,0.0);
+        assertEquals(expectedResult, result, 0.0);
 
     }
 }

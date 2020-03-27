@@ -18,7 +18,7 @@ public class TrainingViewModel extends AndroidViewModel {
     private LiveData<List<Training>> mAllTrainings;
     private final long id;
 
-    TrainingViewModel(@NonNull Application application, final long id) {
+    public TrainingViewModel(@NonNull Application application, final long id) {
         super(application);
         this.id = id;
         mTrainingRepository = new TrainingRepository(application);

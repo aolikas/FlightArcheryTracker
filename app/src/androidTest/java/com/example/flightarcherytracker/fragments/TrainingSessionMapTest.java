@@ -45,9 +45,9 @@ public class TrainingSessionMapTest {
         UiObject marker = mDevice.findObject(new UiSelector()
                 .descriptionContains("You current position"));
         UiObject markerStart = mDevice.findObject(new UiSelector()
-        .descriptionContains("Start"));
+                .descriptionContains("Start"));
 
-        try{
+        try {
             marker.click();
             markerStart.click();
         } catch (UiObjectNotFoundException e) {
@@ -56,5 +56,4 @@ public class TrainingSessionMapTest {
 
         mDevice.click(52, 13);
     }
-
 }

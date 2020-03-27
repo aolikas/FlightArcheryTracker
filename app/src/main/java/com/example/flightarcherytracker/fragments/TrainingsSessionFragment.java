@@ -87,6 +87,8 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     private double mStartLat;
     private double mStartLng;
 
+    private int mShootCount = 0;
+
     private TrainingListener mTrainingListener;
     private ShootsListener mShootsListener;
 
@@ -259,7 +261,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
         Marker shootMarker = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(shootLat, shootLng))
-                .title("Shoot # " + " , distance " + Double.parseDouble(df.format(distance)))
+                .title("Shoot # " + mShootCount + " , distance " + Double.parseDouble(df.format(distance)))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
 
 
@@ -354,7 +356,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.training_btn_start:
-
+                mShootCount = 0;
                 if (mMap != null && mCurrentLocation != null) {
                     Log.d(TAG, "onClick training location: " + mCurrentLocation.getLatitude()
                             + mCurrentLocation.getLongitude());
@@ -367,10 +369,15 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                 break;
 
             case R.id.training_btn_save:
-                Toast.makeText(getActivity(), "Button Shoot is clicked", Toast.LENGTH_SHORT).show();
+                mShootCount += 1;
                 getShootsLocation();
+                Toast.makeText(getActivity(), "Your shoot is saved", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    public int getShootsCount() {
+        return mShootCount;
     }
 
 
@@ -422,6 +429,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         super.onDestroy();
         mMapView.onDestroy();
         mFusedLocationClient = null;
+        mMap = null;
     }
 
     @Override

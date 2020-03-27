@@ -7,6 +7,7 @@ import androidx.annotation.ContentView;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.rule.ActivityTestRule;
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -29,12 +30,12 @@ import org.junit.runner.RunWith;
 public class ShootSaveAlertDialogTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> activityTestRule =
+    public ActivityTestRule<MainActivity> mActivityTestRule =
             new ActivityTestRule<>(MainActivity.class);
 
     @Before
     public void init() {
-        activityTestRule.getActivity()
+        mActivityTestRule.getActivity()
                 .getSupportFragmentManager().beginTransaction();
     }
 
