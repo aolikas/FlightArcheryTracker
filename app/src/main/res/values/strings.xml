@@ -20,4 +20,13 @@
     <string name="item_training_see_map_shoots">See all shoots for training</string>
     <string name="item_training_see_shoots">See my shoots</string>
     <string name="item_training_delete">Delete Training</string>
+    <string name="shoots_list_title">Your shoots for this training</string>
+    <string name="shoots_list_toast">Here are all shoots for this training</string>
+    <string name="item_shoot_title">Shoot #</string>
+    <string name="item_shoot_id">1</string>
+    <string name="item_shoot_distance_title">Distance:</string>
+    <string name="item_shoot_distance">100</string>
+    <string name="item_shoot_meters">meters</string>
+    <string name="item_shoot_description">Here some comments</string>
+
 </resources>

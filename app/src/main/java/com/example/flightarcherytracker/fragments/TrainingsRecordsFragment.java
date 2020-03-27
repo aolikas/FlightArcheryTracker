@@ -3,7 +3,11 @@ package com.example.flightarcherytracker.fragments;
 
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -15,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.flightarcherytracker.R;
 import com.example.flightarcherytracker.adapters.TrainingRecyclerViewAdapter;
@@ -59,6 +64,35 @@ public class TrainingsRecordsFragment extends Fragment {
             @Override
             public void onChanged(List<Training> trainings) {
                 adapter.setTrainings(trainings);
+            }
+        });
+
+        adapter.setOnTrainingClickListener(new TrainingRecyclerViewAdapter.TrainingDetailAdapterListener() {
+            @Override
+            public void onShowMapTrainingClick(Training training) {
+
+            }
+
+            @Override
+            public void onDeleteTrainingClick(int position) {
+
+            }
+
+            @Override
+            public void onSeeShootRecordsClick(Training training) {
+
+                FragmentManager manager = getChildFragmentManager();
+                       // getFragmentManager();
+                long id = training.getId();
+
+                ShootsListFragment fragment = new ShootsListFragment();
+                Bundle args = new Bundle();
+                args.putLong("id", id);
+                fragment.setArguments(args);
+                fragment.show(manager, "ShootListFragment");
+
+                Toast.makeText(getContext(), R.string.shoots_list_toast, Toast.LENGTH_SHORT).show();
+
             }
         });
 
