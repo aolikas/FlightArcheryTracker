@@ -66,6 +66,22 @@ public class TrainingsRecordsFragment extends Fragment {
             @Override
             public void onShowMapTrainingClick(Training training) {
 
+                ShootsMapFragment fragment = new ShootsMapFragment();
+                long id = training.getId();
+                double lat = training.getTrainingLat();
+                double lng = training.getTrainingLng();
+                Bundle args = new Bundle();
+                args.putLong("id", id);
+                args.putDouble("lat", lat);
+                args.putDouble("lng", lng);
+                fragment.setArguments(args);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container_records, fragment, "ShowOnMapFragment")
+                        .addToBackStack(null)
+                        .commit();
+                Log.d(TAG, "onShowMapTrainingClick: " + id);
+                Toast.makeText(getContext(), "Show onMap is clicked", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
