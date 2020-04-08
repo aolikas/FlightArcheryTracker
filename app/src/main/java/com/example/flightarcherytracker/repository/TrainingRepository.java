@@ -65,6 +65,11 @@ public class TrainingRepository {
         return this.mTrainingDao.getTrainingById(id);
     }
 
+    public LiveData<List<Training>> getTrainingByTrainingId(long trainingId) {
+        return this.mTrainingDao.getTrainingRecordById(trainingId);
+
+    }
+
 
     /////*******************AsyncTask Classes*****************************************
 

@@ -55,6 +55,9 @@ public class ShootsListFragment extends DialogFragment {
                 adapter.setShoots(shoots);
             }
         });
+
+
+
         getDialog();
         return view;
     }

@@ -9,5 +9,10 @@
         android:id="@+id/map_view_shoots"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_shoots_map_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

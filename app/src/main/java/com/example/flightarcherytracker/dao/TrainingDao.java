@@ -33,4 +33,7 @@ public interface TrainingDao {
 
     @Query("select * from trainings where id =:trainingId")
     long getTrainingById(long trainingId);
+
+    @Query("select * from trainings where id = :training_id")
+    LiveData<List<Training>> getTrainingRecordById(long training_id);
 }

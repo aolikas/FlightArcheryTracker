@@ -68,12 +68,13 @@ public class TrainingsRecordsFragment extends Fragment {
 
                 ShootsMapFragment fragment = new ShootsMapFragment();
                 long id = training.getId();
-                double lat = training.getTrainingLat();
-                double lng = training.getTrainingLng();
+                double startLat = training.getTrainingLat();
+                double startLng = training.getTrainingLng();
+
                 Bundle args = new Bundle();
                 args.putLong("id", id);
-                args.putDouble("lat", lat);
-                args.putDouble("lng", lng);
+                args.putDouble("startLat", startLat);
+                args.putDouble("startLng", startLng);
                 fragment.setArguments(args);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container_records, fragment, "ShowOnMapFragment")

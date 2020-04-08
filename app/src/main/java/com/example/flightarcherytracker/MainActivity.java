@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.flightarcherytracker.adapters.ViewPagerAdapter;
@@ -29,8 +30,9 @@ import com.example.flightarcherytracker.fragments.TrainingsRecordsFragment;
 import com.example.flightarcherytracker.fragments.TrainingsSessionFragment;
 import com.example.flightarcherytracker.viewModel.ShootViewModel;
 import com.example.flightarcherytracker.viewModel.ShootsViewModelFactory;
+import com.example.flightarcherytracker.viewModel.TrainingFactory;
 import com.example.flightarcherytracker.viewModel.TrainingViewModel;
-import com.example.flightarcherytracker.viewModel.TrainingViewModelFactory;
+
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Date;
@@ -75,8 +77,10 @@ public class MainActivity extends AppCompatActivity
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        mTrainingViewModel = new ViewModelProvider(this, new TrainingViewModelFactory(getApplication(), trainingId))
-                .get(TrainingViewModel.class);
+   //     mTrainingViewModel = new ViewModelProvider(this, new TrainingViewModelFactory(getApplication(), trainingId))
+     //           .get(TrainingViewModel.class);
+
+        mTrainingViewModel = new ViewModelProvider(this, new TrainingFactory(getApplication())).get(TrainingViewModel.class);
         mShootViewModel = new ViewModelProvider(this, new ShootsViewModelFactory(getApplication()))
                 .get(ShootViewModel.class);
     }

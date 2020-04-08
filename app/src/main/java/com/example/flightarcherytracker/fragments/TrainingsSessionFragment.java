@@ -8,14 +8,19 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
@@ -49,6 +54,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -104,6 +110,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         Log.d(TAG, "TrainingSession: onCreate");
     }
 
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -124,7 +131,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                     compass.getLayoutParams();
 
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-            layoutParams.setMargins(20, 200, 20, 0);
+            layoutParams.setMargins(20, 350, 20, 0);
         }
 
         //init button startTraining
@@ -148,23 +155,25 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
         }
-
+        Log.d(TAG, "TrainingSession: onInitMap");
         mMapView.onCreate(mapViewBundle);
         mMapView.getMapAsync(this);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
+       // if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+         //       != PackageManager.PERMISSION_GRANTED
+           //     && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+             //   != PackageManager.PERMISSION_GRANTED) {
+            //return;
+      //  }
+
         mMap = googleMap;
-        mMap.setContentDescription("Map is ready");
+        Log.d(TAG, "TrainingSession: onMapReady");
         mMap.setMyLocationEnabled(false);
         mMap.getUiSettings().setCompassEnabled(true);
+
     }
 
     @Override
@@ -193,9 +202,11 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                     + mCurrentLocation.getLongitude());
 
             if (mFirstTimeFlag && mMap != null) {
+                Log.d(TAG, "LocationCallback: map is not null");
                 animateCamera(mCurrentLocation);
                 mFirstTimeFlag = false;
             }
+            Log.d(TAG, "TrainingSession: onShowMarker");
             showMarker(mCurrentLocation);
         }
     };
@@ -215,6 +226,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                 return;
             }
         }
+        Log.d(TAG, "TrainingSession: onStartCurrentLocationUpdates");
         mFusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper());
     }
 
@@ -227,7 +239,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         mStartLat = mCurrentLocation.getLatitude();
         mStartLng = mCurrentLocation.getLongitude();
 
-        Marker startTrainingMarker = mMap.addMarker(new MarkerOptions()
+        mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(mStartLat, mStartLng))
                 .title("Start")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
@@ -235,6 +247,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         mCurrentLocationMarker = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(mStartLat, mStartLng))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
 
         animateCamera(mCurrentLocation);
 
@@ -259,7 +272,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
         DecimalFormat df = new DecimalFormat("#.#");
 
-        Marker shootMarker = mMap.addMarker(new MarkerOptions()
+        mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(shootLat, shootLng))
                 .title("Shoot # " + mShootCount + " , distance " + Double.parseDouble(df.format(distance)))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
@@ -268,6 +281,8 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         mCurrentLocationMarker = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(shootLat, shootLng))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+
+
 
         Log.d(TAG, "onCompleteShoot: latitude: + " + shootLat +
                 "longitude: " + shootLng);
@@ -330,25 +345,29 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
     @NonNull
     private CameraPosition getCameraPositionWithBearing(LatLng latLng) {
-        return new CameraPosition.Builder().target(latLng).zoom(30).bearing(180).tilt(45).build();
+        return new CameraPosition.Builder().target(latLng).zoom(20).bearing(180).tilt(45).build();
     }
 
     private void showMarker(@NonNull Location currentLocation) {
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        if (mCurrentLocationMarker == null) {
-            Log.d(TAG, "ShowMarker: if null " + " lat: " + currentLocation.getLatitude()
-                    + " lng: " + currentLocation.getLongitude());
+        if (mCurrentLocationMarker == null)
             mCurrentLocationMarker = mMap.addMarker(new MarkerOptions()
+                    .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_my_location)).position(latLng));
+
                    // .title("Current location")
-                    .icon(BitmapDescriptorFactory.defaultMarker()).position(latLng));
+                //    .icon(BitmapDescriptorFactory.fromResource(R.drawable.current_location)).position(latLng));
+                 //   .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(latLng));
+         else
+             MarkerAnimation.animateMarkerToGB(mCurrentLocationMarker, latLng, new LatLngInterpolator.Spherical());
+    }
 
-        } else {
-            Log.d(TAG, "ShowMarker: " + currentLocation.getLatitude() + " "
-                    + currentLocation.getLongitude());
-
-            MarkerAnimation.animateMarkerToGB(mCurrentLocationMarker, latLng, new LatLngInterpolator.Spherical());
-            Log.d(TAG, "showMarker: final position " + latLng);
-        }
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
 
@@ -438,27 +457,18 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         mMapView.onLowMemory();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: is called");
-        if (requestCode == PERMISSIONS_REQUEST_ENABLE_GPS) {
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-            startCurrentLocationUpdates();
-        }
-    }
+
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         Log.d(TAG, "Training: onAttach");
-        if (context instanceof TrainingListener) {
+                if (context instanceof TrainingListener) {
             mTrainingListener = (TrainingListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement mTrainingListener");
         }
-
         if (context instanceof ShootsListener) {
             mShootsListener = (ShootsListener) context;
         } else {
@@ -475,7 +485,18 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         mShootsListener = null;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: is called");
+        if (requestCode == PERMISSIONS_REQUEST_ENABLE_GPS) {
+              mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+            startCurrentLocationUpdates();
+        }
+    }
+
     // *************************** Google play services checking **************************** \\
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
@@ -546,4 +567,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+
 }

@@ -4,13 +4,12 @@
     android:id="@+id/container_records"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="12dp"
     tools:context=".fragments.TrainingsRecordsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_records_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="110dp" />
+        android:layout_marginTop="120dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

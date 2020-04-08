@@ -6,27 +6,21 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-public class TrainingViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+public class TrainingFactory extends ViewModelProvider.NewInstanceFactory {
 
     @NonNull
     private final Application application;
 
-    private final long id;
-
-    public TrainingViewModelFactory(@NonNull Application application, long id) {
-        this.application = application;
-        this.id = id;
+    public TrainingFactory(@NonNull Application application) {
+    this.application = application;
     }
-
-
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if(modelClass == TrainingViewModel.class) {
-//            return (T) new TrainingViewModel(application, id);
+            return (T) new TrainingViewModel(application);
         }
         return null;
     }
-
 
 }
