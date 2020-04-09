@@ -8,19 +8,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
@@ -41,6 +36,7 @@ import com.example.flightarcherytracker.R;
 import com.example.flightarcherytracker.helpers.CalculateDistanceBetweenMarkers;
 import com.example.flightarcherytracker.helpers.LatLngInterpolator;
 import com.example.flightarcherytracker.helpers.MarkerAnimation;
+import com.example.flightarcherytracker.helpers.SetBitmapDescriptorFromVector;
 import com.example.flightarcherytracker.helpers.SetParamsForButtons;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -54,7 +50,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -131,7 +126,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                     compass.getLayoutParams();
 
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-            layoutParams.setMargins(20, 350, 20, 0);
+            layoutParams.setMargins(20, 360, 20, 0);
         }
 
         //init button startTraining
@@ -242,14 +237,11 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(mStartLat, mStartLng))
                 .title("Start")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-
-        mCurrentLocationMarker = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(mStartLat, mStartLng))
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
         animateCamera(mCurrentLocation);
+
+        mCurrentLocationMarker = mMap.addMarker(getMarker(mStartLng, mStartLng));
 
         Log.d(TAG, "getTrainingStartLocation: animateCamera with start: " + mStartLat + " "
                 + mStartLng);
@@ -259,6 +251,13 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         Log.d(TAG, "onCompleteTrainingStartLocation: training start location: lat: " + mStartLat +
                 ", lng: " + mStartLng);
 
+    }
+
+    private MarkerOptions getMarker(double lat, double lng) {
+        return new MarkerOptions()
+                .position(new LatLng(lat, lng))
+                .icon(SetBitmapDescriptorFromVector.bitmapDescriptorFromVector(getActivity(),
+                        R.drawable.ic_my_location));
     }
 
     private void getShootsLocation() {
@@ -276,12 +275,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                 .position(new LatLng(shootLat, shootLng))
                 .title("Shoot # " + mShootCount + " , distance " + Double.parseDouble(df.format(distance)))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-
-
-        mCurrentLocationMarker = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(shootLat, shootLng))
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-
 
 
         Log.d(TAG, "onCompleteShoot: latitude: + " + shootLat +
@@ -350,26 +343,15 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
     private void showMarker(@NonNull Location currentLocation) {
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+
         if (mCurrentLocationMarker == null)
-            mCurrentLocationMarker = mMap.addMarker(new MarkerOptions()
-                    .icon(bitmapDescriptorFromVector(getActivity(), R.drawable.ic_my_location)).position(latLng));
-
-                   // .title("Current location")
-                //    .icon(BitmapDescriptorFactory.fromResource(R.drawable.current_location)).position(latLng));
-                 //   .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(latLng));
-         else
-             MarkerAnimation.animateMarkerToGB(mCurrentLocationMarker, latLng, new LatLngInterpolator.Spherical());
+            mCurrentLocationMarker = mMap.addMarker(getMarker(currentLocation.getLatitude(), currentLocation.getLongitude()));
+          //  mCurrentLocationMarker = mMap.addMarker(new MarkerOptions()
+            //        .icon(SetBitmapDescriptorFromVector.bitmapDescriptorFromVector(getActivity(),
+              //              R.drawable.ic_my_location)).position(latLng));
+        else
+            MarkerAnimation.animateMarkerToGB(mCurrentLocationMarker, latLng, new LatLngInterpolator.Spherical());
     }
-
-    private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId) {
-        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
-        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
-        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        vectorDrawable.draw(canvas);
-        return BitmapDescriptorFactory.fromBitmap(bitmap);
-    }
-
 
     @Override
     public void onClick(View v) {

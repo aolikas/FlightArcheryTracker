@@ -6,4 +6,5 @@
     <color name="colorMainButton">#E0F7FA</color>
     <color name="colorTextTab">#FFFFFF</color>
     <color name="colorTextButton">#5C5B5B</color>
+    <color name="colorNewButton">#FADA5E</color>
 </resources>

@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 
+import com.example.flightarcherytracker.R;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -18,8 +21,8 @@ public class MarkerAnimation {
 
     public static void animateMarkerToGB(final Marker marker, final LatLng finalPosition,
                                          final LatLngInterpolator latLngInterpolator) {
-
         final LatLng startPosition = marker.getPosition();
+
         Log.d(TAG, "animateMarkerToGB: start position: " + startPosition);
         final Handler handler = new Handler();
         final long start = SystemClock.uptimeMillis();
@@ -49,5 +52,8 @@ public class MarkerAnimation {
 
             }
         });
+
+
+
     }
 }
