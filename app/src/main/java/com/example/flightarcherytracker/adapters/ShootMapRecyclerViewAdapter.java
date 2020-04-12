@@ -77,15 +77,6 @@ public class ShootMapRecyclerViewAdapter extends RecyclerView.Adapter<ShootMapRe
 
     }
 
-    private Marker createMarker(double lat, double lng) {
-        return mMap.addMarker(new MarkerOptions()
-        .position(new LatLng(lat, lng))
-                .title("Start")
-        .anchor(0.5f, 0.5f)
-        .icon(BitmapDescriptorFactory.defaultMarker()));
-    }
-
-
     @Override
     public int getItemCount() {
         return mShoots.size();

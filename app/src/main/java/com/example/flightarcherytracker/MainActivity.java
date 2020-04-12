@@ -1,15 +1,12 @@
 package com.example.flightarcherytracker;
 
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
-
 import androidx.viewpager.widget.ViewPager;
 
 
@@ -20,7 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
+
 import android.widget.Toast;
 
 import com.example.flightarcherytracker.adapters.ViewPagerAdapter;
@@ -77,9 +74,6 @@ public class MainActivity extends AppCompatActivity
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-   //     mTrainingViewModel = new ViewModelProvider(this, new TrainingViewModelFactory(getApplication(), trainingId))
-     //           .get(TrainingViewModel.class);
-
         mTrainingViewModel = new ViewModelProvider(this, new TrainingFactory(getApplication())).get(TrainingViewModel.class);
         mShootViewModel = new ViewModelProvider(this, new ShootsViewModelFactory(getApplication()))
                 .get(ShootViewModel.class);
@@ -96,6 +90,8 @@ public class MainActivity extends AppCompatActivity
 
         Toast.makeText(this, "Training is started saving", Toast.LENGTH_SHORT).show();
     }
+
+
 
     @Override
     public void onShootsInputListener(double lat, double lng, String description, double distance) {
@@ -138,12 +134,9 @@ public class MainActivity extends AppCompatActivity
                 });
 
                 alertDialogBuilder.show();
-
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 
 }

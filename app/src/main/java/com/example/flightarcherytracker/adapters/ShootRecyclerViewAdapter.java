@@ -54,7 +54,7 @@ public class ShootRecyclerViewAdapter extends RecyclerView.Adapter<ShootRecycler
         private TextView tvDistance;
         private TextView tvDescription;
 
-        public ShootViewHolder(@NonNull View itemView) {
+        private ShootViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvPosition = itemView.findViewById(R.id.tv_shoot_id);

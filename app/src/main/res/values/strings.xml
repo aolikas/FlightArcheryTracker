@@ -7,6 +7,7 @@
     <string name="button_start_training">Start training</string>
     <string name="button_save_shoot">Save shoot</string>
     <string name="button_start_new_training">Start New Training</string>
+    <string name="button_stop_current_training">Stop Training</string>
 
     <string name="shoot_message_dialog_message">Here you can write same info about your shoot</string>
     <string name="shoot_message_dialog_hint">Write here</string>
@@ -38,7 +39,14 @@
     <string name="alert_dialog_delete_all_positive">Yes</string>
     <string name="alert_dialog_delete_all_negative">Cancel</string>
 
+    <string name="alert_dialog_cancel_training_title">Confirm Cancel this Training</string>
+    <string name="alert_dialog_cancel_training_message">Are you sure you want to cancel this training?</string>
+    <string name="alert_dialog_cancel_training_positive">Yes</string>
+    <string name="alert_dialog_cancel_training_negative">Cancel</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_main_clear">Clear Training</string>
+    <string name="shoots_list_empty_view_text">There are no any shoots for this training!</string>
 
 </resources>

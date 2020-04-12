@@ -38,6 +38,7 @@ import com.example.flightarcherytracker.helpers.LatLngInterpolator;
 import com.example.flightarcherytracker.helpers.MarkerAnimation;
 import com.example.flightarcherytracker.helpers.SetBitmapDescriptorFromVector;
 import com.example.flightarcherytracker.helpers.SetParamsForButtons;
+import com.example.flightarcherytracker.helpers.SetParamsForMainButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -83,6 +84,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     private EditText mShootDescriptionEt;
     private Button mStartTrainingButton;
     private Button mSaveShootButton;
+    private Button mStopTrainingButton;
 
     //initial lat and lng for training
     private double mStartLat;
@@ -92,6 +94,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
     private TrainingListener mTrainingListener;
     private ShootsListener mShootsListener;
+
 
 
     public TrainingsSessionFragment() {
@@ -126,21 +129,24 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                     compass.getLayoutParams();
 
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-            layoutParams.setMargins(20, 360, 20, 0);
+            layoutParams.setMargins(20, 380, 20, 0);
         }
 
         //init button startTraining
         mStartTrainingButton = view.findViewById(R.id.training_btn_start);
         mStartTrainingButton.setOnClickListener(this);
 
-        //make button StartTraining full screen
-        mStartTrainingButton.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
+        //init button StopTraining
+        mStopTrainingButton = view.findViewById(R.id.training_btn_stop);
+        mStopTrainingButton.setOnClickListener(this);
+        mStopTrainingButton.setVisibility(View.GONE);
 
         //init and make invisible button SaveShoot
         mSaveShootButton = view.findViewById(R.id.training_btn_save);
         mSaveShootButton.setOnClickListener(this);
         mSaveShootButton.setVisibility(View.GONE);
+
+        SetParamsForMainButton.setParamsForTrainingButton(mStartTrainingButton);
 
         return view;
     }
@@ -225,6 +231,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         mFusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper());
     }
 
+
     // get start/new location for training
     private void getTrainingStartLocation() {
         Log.d(TAG, "onGetTrainingStartLocation: getting the device current location");
@@ -271,7 +278,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
         DecimalFormat df = new DecimalFormat("#.#");
 
-        mMap.addMarker(new MarkerOptions()
+       Marker shootMarker =  mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(shootLat, shootLng))
                 .title("Shoot # " + mShootCount + " , distance " + Double.parseDouble(df.format(distance)))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
@@ -282,10 +289,10 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
         animateCamera(mCurrentLocation);
 
-        showDialogForSaveShoot(shootLat, shootLng, distance);
+        showDialogForSaveShoot(shootLat, shootLng, distance, shootMarker);
     }
 
-    private void showDialogForSaveShoot(final double lat, final double lng, final double distance) {
+    private void showDialogForSaveShoot(final double lat, final double lng, final double distance, final Marker shootMarker) {
 
         View messageView = getActivity().getLayoutInflater().inflate(R.layout.shoot_message_dialog,
                 new LinearLayout(getActivity()), false);
@@ -321,6 +328,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                shootMarker.remove();
             }
         });
 
@@ -363,9 +371,9 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                             + mCurrentLocation.getLongitude());
                     getTrainingStartLocation();
                 }
-
                 //changes params for buttons two instead of one
-                SetParamsForButtons.setParamsForButtons(mStartTrainingButton, mSaveShootButton);
+                mStartTrainingButton.setVisibility(View.GONE);
+                SetParamsForButtons.setParamsForButtons(mStopTrainingButton, mSaveShootButton);
                 Toast.makeText(getActivity(), "Your training is started", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -374,7 +382,37 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                 getShootsLocation();
                 Toast.makeText(getActivity(), "Your shoot is saved", Toast.LENGTH_SHORT).show();
                 break;
+
+            case R.id.training_btn_stop:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+
+                alertDialogBuilder.setTitle(R.string.alert_dialog_cancel_training_title);
+                alertDialogBuilder.setMessage(R.string.alert_dialog_cancel_training_message);
+                alertDialogBuilder.setPositiveButton(R.string.alert_dialog_cancel_training_positive, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mMap.clear();
+                        mCurrentLocationMarker = mMap.addMarker(getMarker(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
+
+                        mStopTrainingButton.setVisibility(View.GONE);
+                        mSaveShootButton.setVisibility(View.GONE);
+                        mStartTrainingButton.setVisibility(View.VISIBLE);
+                        SetParamsForMainButton.setParamsForTrainingButton(mStartTrainingButton);
+                    }
+                });
+
+                alertDialogBuilder.setNegativeButton(R.string.alert_dialog_cancel_training_negative, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                alertDialogBuilder.show();
+
+                break;
         }
+
     }
 
     public int getShootsCount() {

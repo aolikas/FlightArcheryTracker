@@ -4,6 +4,7 @@ import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -65,6 +66,15 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback {
         mMapView = view.findViewById(R.id.map_view_shoots);
 
         initMap(savedInstanceState);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.activity_main_toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
 
         RecyclerView recyclerView = view.findViewById(R.id.fragment_shoots_map_rv);
