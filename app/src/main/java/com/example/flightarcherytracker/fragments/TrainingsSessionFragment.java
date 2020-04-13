@@ -95,7 +95,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     private TrainingListener mTrainingListener;
     private ShootsListener mShootsListener;
     private ButtonStartListener mButtonListener;
-    boolean buttonCondition = false;
+    boolean buttonCondition = true;
 
 
 
@@ -365,7 +365,8 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_start_training:
-                mButtonListener.onButtonStartConditionListener(true);
+                boolean condition = true;
+                mButtonListener.shareCondition(true);
                 Log.d(TAG, "onClick: send " + buttonCondition);
                 mShootCount = 0;
                 if (mMap != null && mCurrentLocation != null) {
@@ -386,6 +387,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                 break;
 
             case R.id.btn_stop_training:
+                mButtonListener.shareCondition(false);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
 
                 alertDialogBuilder.setTitle(R.string.alert_dialog_stop_training_title);
@@ -436,7 +438,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     }
 
     public interface ButtonStartListener {
-        void onButtonStartConditionListener(boolean buttonCondition);
+       void shareCondition(boolean condition);
     }
 
     @Override
@@ -502,6 +504,13 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
             throw new RuntimeException(context.toString()
                     + " must implement mShootsListener");
         }
+
+        if (context instanceof ButtonStartListener) {
+            mButtonListener = (ButtonStartListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement mShootsListener");
+        }
     }
 
     @Override
@@ -510,6 +519,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         Log.d(TAG, "Training: onDetach");
         mTrainingListener = null;
         mShootsListener = null;
+        mButtonListener = null;
     }
 
     @Override

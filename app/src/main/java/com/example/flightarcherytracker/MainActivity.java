@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 import com.example.flightarcherytracker.adapters.ViewPagerAdapter;
@@ -119,35 +120,46 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+
             case R.id.delete_all:
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                alertDialogBuilder.setTitle(R.string.alert_dialog_delete_all_title);
-                alertDialogBuilder.setMessage(R.string.alert_dialog_delete_all_message);
-                alertDialogBuilder.setPositiveButton(R.string.alert_dialog_delete_all_positive, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mTrainingViewModel.deleteAllTrainings();
-                    }
-                });
+                if(mCondition) {
+                    Toast.makeText(this, "Please make sure that you stop your current training", Toast.LENGTH_SHORT).show();
+                } else {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setTitle(R.string.alert_dialog_delete_all_title);
+                    alertDialogBuilder.setMessage(R.string.alert_dialog_delete_all_message);
+                    alertDialogBuilder.setPositiveButton(R.string.alert_dialog_delete_all_positive, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mTrainingViewModel.deleteAllTrainings();
+                        }
+                    });
 
-                alertDialogBuilder.setNegativeButton(R.string.alert_dialog_delete_all_negative, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                    alertDialogBuilder.setNegativeButton(R.string.alert_dialog_delete_all_negative, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
 
-                alertDialogBuilder.show();
+                    alertDialogBuilder.show();
+
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    boolean condition;
+    boolean mCondition = false;
+
+
 
     @Override
-    public void onButtonStartConditionListener(boolean buttonCondition) {
-        condition = buttonCondition;
-        Log.d(TAG, "onButtonStartConditionListener: " + condition);
+    public void shareCondition(boolean condition) {
+        Log.d(TAG, "shareCondition: first " + mCondition);
+
+        mCondition = condition;
+        Log.d(TAG, "shareCondition: " + mCondition);
+
     }
 }
