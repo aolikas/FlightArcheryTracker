@@ -52,10 +52,10 @@ public class RecyclerViewRecordsTest {
         onView(withId(R.id.container_training))
                 .check(matches(isDisplayed()));
 
-        onView(withId(R.id.training_btn_start))
+        onView(withId(R.id.btn_start_training))
                 .check(matches(isDisplayed()));
 
-        onView(withId(R.id.activity_main_view_pager))
+        onView(withId(R.id.view_pager_activity_main))
                 .check(matches(isDisplayed()));
 
         onView(withText("Records"))

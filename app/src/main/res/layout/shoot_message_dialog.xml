@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="@string/shoot_message_dialog_message"
+        android:text="@string/dialog_shoot_message_message"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <EditText
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/dialog_shoot_message_title"
         android:layout_marginTop="10dp"
-        android:autofillHints="@string/shoot_message_dialog_hint"
+        android:autofillHints="@string/dialog_shoot_message_hint"
         android:gravity="center"
         android:inputType="textMultiLine"
         tools:ignore="LabelFor" />

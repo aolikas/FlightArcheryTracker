@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -59,6 +58,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,6 +94,8 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
     private TrainingListener mTrainingListener;
     private ShootsListener mShootsListener;
+    private ButtonStartListener mButtonListener;
+    boolean buttonCondition = false;
 
 
 
@@ -133,16 +135,16 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         }
 
         //init button startTraining
-        mStartTrainingButton = view.findViewById(R.id.training_btn_start);
+        mStartTrainingButton = view.findViewById(R.id.btn_start_training);
         mStartTrainingButton.setOnClickListener(this);
 
         //init button StopTraining
-        mStopTrainingButton = view.findViewById(R.id.training_btn_stop);
+        mStopTrainingButton = view.findViewById(R.id.btn_stop_training);
         mStopTrainingButton.setOnClickListener(this);
         mStopTrainingButton.setVisibility(View.GONE);
 
         //init and make invisible button SaveShoot
-        mSaveShootButton = view.findViewById(R.id.training_btn_save);
+        mSaveShootButton = view.findViewById(R.id.btn_save_shoots);
         mSaveShootButton.setOnClickListener(this);
         mSaveShootButton.setVisibility(View.GONE);
 
@@ -216,16 +218,14 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(3000);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-                return;
-            }
+        if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(Objects.requireNonNull(getActivity())), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+            return;
         }
         Log.d(TAG, "TrainingSession: onStartCurrentLocationUpdates");
         mFusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper());
@@ -294,7 +294,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
     private void showDialogForSaveShoot(final double lat, final double lng, final double distance, final Marker shootMarker) {
 
-        View messageView = getActivity().getLayoutInflater().inflate(R.layout.shoot_message_dialog,
+        View messageView = Objects.requireNonNull(getActivity()).getLayoutInflater().inflate(R.layout.shoot_message_dialog,
                 new LinearLayout(getActivity()), false);
 
         mShootDescriptionEt = messageView.findViewById(R.id.dialog_shoot_message_description);
@@ -304,10 +304,10 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         alertDialogBuilder.setCancelable(true);
 
         final AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.setTitle(getString(R.string.shoot_message_dialog_title));
+        alertDialog.setTitle(getString(R.string.dialog_shoot_message_title));
 
 
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.shoot_message_dialog_positive),
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.dialog_shoot_message_positive),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -323,7 +323,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                     }
                 });
 
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.shoot_message_dialog_negative),
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.dialog_shoot_message_negative),
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -364,7 +364,9 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.training_btn_start:
+            case R.id.btn_start_training:
+                mButtonListener.onButtonStartConditionListener(true);
+                Log.d(TAG, "onClick: send " + buttonCondition);
                 mShootCount = 0;
                 if (mMap != null && mCurrentLocation != null) {
                     Log.d(TAG, "onClick training location: " + mCurrentLocation.getLatitude()
@@ -377,20 +379,21 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                 Toast.makeText(getActivity(), "Your training is started", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.training_btn_save:
+            case R.id.btn_save_shoots:
                 mShootCount += 1;
                 getShootsLocation();
                 Toast.makeText(getActivity(), "Your shoot is saved", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.training_btn_stop:
+            case R.id.btn_stop_training:
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
 
-                alertDialogBuilder.setTitle(R.string.alert_dialog_cancel_training_title);
-                alertDialogBuilder.setMessage(R.string.alert_dialog_cancel_training_message);
-                alertDialogBuilder.setPositiveButton(R.string.alert_dialog_cancel_training_positive, new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setTitle(R.string.alert_dialog_stop_training_title);
+                alertDialogBuilder.setMessage(R.string.alert_dialog_stop_training_message);
+                alertDialogBuilder.setPositiveButton(R.string.alert_dialog_stop_training_positive, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         mMap.clear();
                         mCurrentLocationMarker = mMap.addMarker(getMarker(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
 
@@ -401,7 +404,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                     }
                 });
 
-                alertDialogBuilder.setNegativeButton(R.string.alert_dialog_cancel_training_negative, new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setNegativeButton(R.string.alert_dialog_stop_training_negative, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -432,12 +435,16 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                                    double distance);
     }
 
+    public interface ButtonStartListener {
+        void onButtonStartConditionListener(boolean buttonCondition);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         mMapView.onResume();
         if (checkMapServices()) {
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
             startCurrentLocationUpdates();
         }
     }
@@ -510,7 +517,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: is called");
         if (requestCode == PERMISSIONS_REQUEST_ENABLE_GPS) {
-              mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+              mFusedLocationClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
             startCurrentLocationUpdates();
         }
     }
@@ -562,7 +569,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     private boolean isMapEnabled() {
         Log.d(TAG, "isMapEnabled: checking map is enabled");
         final LocationManager manager =
-                (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+                (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.LOCATION_SERVICE);
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGPS();
             return false;

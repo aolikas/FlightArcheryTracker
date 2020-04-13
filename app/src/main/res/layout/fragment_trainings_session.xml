@@ -12,7 +12,6 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
-
         android:id="@+id/fragment_training_buttons_container"
         style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
@@ -24,36 +23,34 @@
         android:weightSum="100">
 
         <Button
-            android:id="@+id/training_btn_start"
+            android:id="@+id/btn_start_training"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="33"
             android:text="@string/button_start_training"
             android:textColor="@color/colorTextButton"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <Button
-            android:id="@+id/training_btn_stop"
+            android:id="@+id/btn_stop_training"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_weight="33"
             android:text="@string/button_stop_current_training"
             android:textColor="@color/colorTextButton"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <Button
-            android:id="@+id/training_btn_save"
+            android:id="@+id/btn_save_shoots"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_weight="33"
             android:text="@string/button_save_shoot"
-            android:textStyle="bold"
-            android:textColor="@color/colorTextButton" />
+            android:textColor="@color/colorTextButton"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

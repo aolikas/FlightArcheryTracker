@@ -13,30 +13,34 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/activity_main_toolbar"
+            android:id="@+id/toolbar_activity_main"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/toolbar_border"
             android:elevation="6dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+
+            <include layout="@layout/activity_main_toolbar"/>
+
+
+        </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/activity_main_tab_layout"
+            android:id="@+id/tab_layout_activity_main"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/toolbar_border"
             android:elevation="6dp"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/colorAccent"
-            app:tabTextColor="@color/colorTextTab"
-            app:tabMode="fixed"/>
+            app:tabMode="fixed"
+            app:tabTextColor="@color/colorTextTab" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/activity_main_view_pager"
+        android:id="@+id/view_pager_activity_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

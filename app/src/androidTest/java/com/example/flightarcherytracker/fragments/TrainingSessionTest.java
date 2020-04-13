@@ -38,24 +38,24 @@ public class TrainingSessionTest {
 
     @Test
     public void TestButtonVisibilityClickable() {
-        onView(withId(R.id.training_btn_start))
+        onView(withId(R.id.btn_start_training))
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
-        onView(withId(R.id.training_btn_save))
+        onView(withId(R.id.btn_save_shoots))
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
 
-        onView(withId(R.id.training_btn_start)).check(matches(isDisplayed()));
+        onView(withId(R.id.btn_start_training)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.training_btn_save)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.btn_save_shoots)).check(matches(not(isDisplayed())));
 
-        onView(withId(R.id.training_btn_start)).perform(click()).check(matches(isDisplayed()));
+        onView(withId(R.id.btn_start_training)).perform(click()).check(matches(isDisplayed()));
 
 
-        onView(withId(R.id.training_btn_save))
+        onView(withId(R.id.btn_save_shoots))
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
-        onView(withId(R.id.training_btn_save)).check(matches(isDisplayed()));
+        onView(withId(R.id.btn_save_shoots)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.training_btn_save)).perform(click());
+        onView(withId(R.id.btn_save_shoots)).perform(click());
     }
 }

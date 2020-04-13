@@ -44,16 +44,16 @@ public class TabLayoutTest {
 
     @Test
     public void swipePage() {
-        onView(withId(R.id.activity_main_view_pager))
+        onView(withId(R.id.view_pager_activity_main))
                 .check(matches(isDisplayed()));
 
-        onView(withId(R.id.activity_main_view_pager))
+        onView(withId(R.id.view_pager_activity_main))
                 .perform(swipeRight());
     }
 
     @Test
     public void checkTabLayoutDisplayed() {
-        onView(withId(R.id.activity_main_tab_layout))
+        onView(withId(R.id.tab_layout_activity_main))
                 .perform(click())
                 .check(matches(isDisplayed()));
     }

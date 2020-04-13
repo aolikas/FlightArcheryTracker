@@ -17,8 +17,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
-import android.widget.Toast;
 
 import com.example.flightarcherytracker.adapters.ViewPagerAdapter;
 import com.example.flightarcherytracker.entity.Shoot;
@@ -33,11 +35,12 @@ import com.example.flightarcherytracker.viewModel.TrainingViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Date;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity
         implements TrainingsSessionFragment.TrainingListener,
-        TrainingsSessionFragment.ShootsListener {
+        TrainingsSessionFragment.ShootsListener, TrainingsSessionFragment.ButtonStartListener {
 
     private static final String TAG = "MainActivity";
 
@@ -52,12 +55,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 
-        TabLayout tabLayout = findViewById(R.id.activity_main_tab_layout);
-        ViewPager viewPager = findViewById(R.id.activity_main_view_pager);
+        TabLayout tabLayout = findViewById(R.id.tab_layout_activity_main);
+        ViewPager viewPager = findViewById(R.id.view_pager_activity_main);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),
                 tabLayout.getTabCount());
-
 
         //add fragment
         String titleFragment1 = getString(R.string.fragment_title_1);
@@ -68,11 +70,15 @@ public class MainActivity extends AppCompatActivity
 
         viewPager.setOffscreenPageLimit(1);
 
-        setSupportActionBar((Toolbar) findViewById(R.id.activity_main_toolbar));
-        setTitle(R.string.app_name);
-
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        //init toolbar
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar_activity_main));
+        setTitle(R.string.app_name);
+        RelativeLayout layout = findViewById(R.id.toolbar_back_arrow_container);
+        layout.setVisibility(View.INVISIBLE);
+
 
         mTrainingViewModel = new ViewModelProvider(this, new TrainingFactory(getApplication())).get(TrainingViewModel.class);
         mShootViewModel = new ViewModelProvider(this, new ShootsViewModelFactory(getApplication()))
@@ -87,8 +93,6 @@ public class MainActivity extends AppCompatActivity
         trainingId = mTrainingViewModel.insertTrainingWithId(currentTraining);
 
         Log.d(TAG, "onTrainingInputListener: insert " + timestamp + " " + lat + " " + lng);
-
-        Toast.makeText(this, "Training is started saving", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -139,4 +143,11 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    boolean condition;
+
+    @Override
+    public void onButtonStartConditionListener(boolean buttonCondition) {
+        condition = buttonCondition;
+        Log.d(TAG, "onButtonStartConditionListener: " + condition);
+    }
 }

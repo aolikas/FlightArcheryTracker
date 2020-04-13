@@ -1,12 +1,12 @@
 package com.example.flightarcherytracker.fragments;
 
-import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,16 +16,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 
 import com.example.flightarcherytracker.R;
 import com.example.flightarcherytracker.adapters.ShootMapRecyclerViewAdapter;
-import com.example.flightarcherytracker.adapters.ShootRecyclerViewAdapter;
 import com.example.flightarcherytracker.entity.Shoot;
-import com.example.flightarcherytracker.entity.Training;
-import com.example.flightarcherytracker.repository.ShootRepository;
 import com.example.flightarcherytracker.viewModel.ShootViewModel;
-import com.example.flightarcherytracker.viewModel.TrainingViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -36,8 +33,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +50,7 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private double startLat;
     private double startLng;
+    private RelativeLayout mLayout;
 
 
     public ShootsMapFragment() {
@@ -67,15 +65,16 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback {
 
         initMap(savedInstanceState);
 
-        Toolbar toolbar = getActivity().findViewById(R.id.activity_main_toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+       // Toolbar toolbar = getActivity().findViewById(R.id.toolbar_activity_main);
+        mLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar_back_arrow_container);
+        mLayout.setVisibility(View.VISIBLE);
+        ImageButton arrowBack = getActivity().findViewById(R.id.btn_toolbar_arrow_back);
+        arrowBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().onBackPressed();
+                Objects.requireNonNull(getActivity()).onBackPressed();
             }
         });
-
 
         RecyclerView recyclerView = view.findViewById(R.id.fragment_shoots_map_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
@@ -85,13 +84,14 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback {
         final ShootMapRecyclerViewAdapter adapter = new ShootMapRecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
 
+        assert getArguments() != null;
         final long trainingId = getArguments().getLong("id");
         startLat = getArguments().getDouble("startLat");
         startLng = getArguments().getDouble("startLng");
 
 
         ViewModelProvider.Factory factory = ViewModelProvider.AndroidViewModelFactory
-                .getInstance(getActivity().getApplication());
+                .getInstance(Objects.requireNonNull(getActivity()).getApplication());
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity(), factory);
 
         final ShootViewModel shootViewModel = viewModelProvider.get(ShootViewModel.class);
@@ -120,15 +120,15 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
-    private Marker createMarker(double lat, double lng) {
-        return mMap.addMarker(new MarkerOptions()
+    private void createMarker(double lat, double lng) {
+        mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(lat, lng))
                 .anchor(0.5f, 0.5f)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
     }
 
-    private Marker createStartMarker(double lat, double lng) {
-        return mMap.addMarker(new MarkerOptions()
+    private void createStartMarker(double lat, double lng) {
+         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(lat, lng))
                 .title("start")
                 .anchor(0.5f, 0.5f)
@@ -191,6 +191,9 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback {
         super.onStop();
         Log.d(TAG, "Training: onStop");
         mMapView.onStop();
+        mLayout.setVisibility(View.INVISIBLE);
+
+
     }
 
     @Override
@@ -198,6 +201,7 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback {
         super.onPause();
         Log.d(TAG, "Training: onStop");
         mMapView.onPause();
+        mLayout.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -206,6 +210,8 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback {
         Log.d(TAG, "Training: onDestroy");
         mMapView.onDestroy();
         mMap = null;
+        mLayout.setVisibility(View.INVISIBLE);
+
     }
 
     @Override

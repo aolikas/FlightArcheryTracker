@@ -53,18 +53,18 @@ public class TrainingsSessionCountTest {
         //test if the fragment is or not
 
         getInstrumentation().waitForIdleSync();
-        View buttonStart = fragment.getView().findViewById(R.id.training_btn_start);
-        View buttonSave = fragment.getView().findViewById(R.id.training_btn_save);
+        View buttonStart = fragment.getView().findViewById(R.id.btn_start_training);
+        View buttonSave = fragment.getView().findViewById(R.id.btn_save_shoots);
 
         assertNotNull(buttonStart);
         assertNotNull(buttonSave);
 
         //click on the button to have count null
-        onView(withId(R.id.training_btn_start)).perform(click());
+        onView(withId(R.id.btn_start_training)).perform(click());
         mCount = fragment.getShootsCount();
         assertEquals(0, mCount);
         //click on the button one time to have count 1
-        onView(withId(R.id.training_btn_save)).perform(click());
+        onView(withId(R.id.btn_save_shoots)).perform(click());
         mCount = fragment.getShootsCount();
         assertEquals(1, mCount);
     }

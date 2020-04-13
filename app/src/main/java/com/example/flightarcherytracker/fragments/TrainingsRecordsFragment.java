@@ -22,6 +22,7 @@ import com.example.flightarcherytracker.entity.Training;
 import com.example.flightarcherytracker.viewModel.TrainingViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,8 +53,9 @@ public class TrainingsRecordsFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         ViewModelProvider.Factory factory = ViewModelProvider.AndroidViewModelFactory
-                .getInstance(getActivity().getApplication());
+                .getInstance(Objects.requireNonNull(getActivity()).getApplication());
         ViewModelProvider viewModelProvider = new ViewModelProvider(requireActivity(), factory);
+
         mTrainingViewModel = viewModelProvider.get(TrainingViewModel.class);
         mTrainingViewModel.getAllTrainings().observe(getViewLifecycleOwner(), new Observer<List<Training>>() {
             @Override
@@ -76,7 +78,7 @@ public class TrainingsRecordsFragment extends Fragment {
                 args.putDouble("startLat", startLat);
                 args.putDouble("startLng", startLng);
                 fragment.setArguments(args);
-                getActivity().getSupportFragmentManager().beginTransaction()
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container_records, fragment, "ShowOnMapFragment")
                         .addToBackStack(null)
                         .commit();
@@ -88,7 +90,7 @@ public class TrainingsRecordsFragment extends Fragment {
             @Override
             public void onDeleteTrainingClick(final int position) {
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
                 alertDialogBuilder.setTitle(R.string.alert_dialog_delete_title);
                 alertDialogBuilder.setMessage(R.string.alert_dialog_delete_message);
                 alertDialogBuilder.setPositiveButton(R.string.alert_dialog_delete_positive, new DialogInterface.OnClickListener() {

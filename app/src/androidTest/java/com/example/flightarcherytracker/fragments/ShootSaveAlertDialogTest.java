@@ -42,11 +42,11 @@ public class ShootSaveAlertDialogTest {
     @Test
     public void testCheckDialogDisplayed() {
 
-        onView(withId(R.id.training_btn_start)).perform(click()).check(matches(isDisplayed()));
-        onView(withId(R.id.training_btn_save)).check(matches(allOf(isDisplayed(), isClickable())));
-        onView(withId(R.id.training_btn_save)).perform(click());
+        onView(withId(R.id.btn_start_training)).perform(click()).check(matches(isDisplayed()));
+        onView(withId(R.id.btn_save_shoots)).check(matches(allOf(isDisplayed(), isClickable())));
+        onView(withId(R.id.btn_save_shoots)).perform(click());
 
-        onView(withText(R.string.shoot_message_dialog_title))
+        onView(withText(R.string.dialog_shoot_message_title))
                 .inRoot(isDialog())
                 .check(matches(isDisplayed()));
     }
@@ -54,13 +54,13 @@ public class ShootSaveAlertDialogTest {
     @Test
     public void testClickSaveButton() {
 
-        onView(withId(R.id.training_btn_start)).perform(click()).check(matches(isDisplayed()));
-        onView(withId(R.id.training_btn_save)).check(matches(allOf(isDisplayed(), isClickable())));
-        onView(withId(R.id.training_btn_save)).perform(click());
+        onView(withId(R.id.btn_start_training)).perform(click()).check(matches(isDisplayed()));
+        onView(withId(R.id.btn_save_shoots)).check(matches(allOf(isDisplayed(), isClickable())));
+        onView(withId(R.id.btn_save_shoots)).perform(click());
 
         onView(withId(android.R.id.button1))
                 .inRoot(isDialog())
-                .check(matches(withText(R.string.shoot_message_dialog_positive)))
+                .check(matches(withText(R.string.dialog_shoot_message_positive)))
                 .check(matches(isDisplayed()));
         onView(withId(android.R.id.button1)).perform(click());
     }
@@ -68,13 +68,13 @@ public class ShootSaveAlertDialogTest {
     @Test
     public void testClickCancelButton() {
 
-        onView(withId(R.id.training_btn_start)).perform(click()).check(matches(isDisplayed()));
-        onView(withId(R.id.training_btn_save)).check(matches(allOf(isDisplayed(), isClickable())));
-        onView(withId(R.id.training_btn_save)).perform(click());
+        onView(withId(R.id.btn_start_training)).perform(click()).check(matches(isDisplayed()));
+        onView(withId(R.id.btn_save_shoots)).check(matches(allOf(isDisplayed(), isClickable())));
+        onView(withId(R.id.btn_save_shoots)).perform(click());
 
         onView(withId(android.R.id.button2))
                 .inRoot(isDialog())
-                .check(matches(withText(R.string.shoot_message_dialog_negative)))
+                .check(matches(withText(R.string.dialog_shoot_message_negative)))
                 .check(matches(isDisplayed()));
         onView(withId(android.R.id.button2)).perform(click());
     }

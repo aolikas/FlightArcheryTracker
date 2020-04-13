@@ -2,6 +2,7 @@ package com.example.flightarcherytracker.fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
 import androidx.lifecycle.Observer;
