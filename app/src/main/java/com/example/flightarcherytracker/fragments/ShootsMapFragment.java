@@ -23,6 +23,7 @@ import com.example.flightarcherytracker.R;
 import com.example.flightarcherytracker.adapters.ShootMapRecyclerViewAdapter;
 import com.example.flightarcherytracker.entity.Shoot;
 import com.example.flightarcherytracker.viewModel.ShootViewModel;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -30,9 +31,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -51,6 +54,8 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback {
     private double startLat;
     private double startLng;
     private RelativeLayout mLayout;
+    private ArrayList<LatLng> mShoots = new ArrayList<>();
+    private ArrayList<Marker> mMarkers = new ArrayList<>();
 
 
     public ShootsMapFragment() {
@@ -96,47 +101,85 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback {
 
         final ShootViewModel shootViewModel = viewModelProvider.get(ShootViewModel.class);
 
-        shootViewModel.getAllShootsLatLngByTrainingId(trainingId).observe(getViewLifecycleOwner(),
+   //     shootViewModel.getAllShootsLatLngByTrainingId(trainingId).observe(getViewLifecycleOwner(),
+     //           new Observer<List<Shoot>>() {
+       //             @Override
+         //           public void onChanged(List<Shoot> list) {
+           //             adapter.setShoots(list, mMap);
+
+             //           createStartMarker(startLat, startLng);
+               //         final LatLng startLocation = new LatLng(startLat, startLng);
+                 //       CameraPosition newCameraPosition = new CameraPosition.Builder()
+                   //             .target(startLocation)
+                     //           .zoom(20f)
+                       //         .build();
+                  //      mMap.moveCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
+
+                    //    for(int i = 0; i < list.size(); i += 1) {
+                      //      createMarker(list.get(i).getShootLat()
+                        //            , list.get(i).getShootLng());
+                  //      }
+                    //}
+      //  });
+
+        shootViewModel.getAllShootLatLngDistByTrainingId(trainingId).observe(getViewLifecycleOwner(),
                 new Observer<List<Shoot>>() {
                     @Override
                     public void onChanged(List<Shoot> list) {
                         adapter.setShoots(list, mMap);
 
-                        createStartMarker(startLat, startLng);
-                        final LatLng startLocation = new LatLng(startLat, startLng);
-                        CameraPosition newCameraPosition = new CameraPosition.Builder()
-                                .target(startLocation)
-                                .zoom(20f)
-                                .build();
-                        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
+                        Marker startMarker = mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(startLat, startLng))
+                                .title(getString(R.string.marker_start_title))
+                        .icon(BitmapDescriptorFactory.defaultMarker()));
 
-                        for(int i = 0; i < list.size(); i += 1) {
-                            createMarker(list.get(i).getShootLat()
-                                    , list.get(i).getShootLng());
+                        for(int i = 0; i <list.size(); i+= 1) {
+                            Marker shootMarker = createMarker(list.get(i).getShootLat()
+                                                , list.get(i).getShootLng());
+                            mMarkers.add(shootMarker);
                         }
+
+
+                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                        builder.include(startMarker.getPosition());
+
+                        for(int i = 0; i < mMarkers.size(); i += 1) {
+                          builder.include(mMarkers.get(i).getPosition());
+                        }
+
+                        LatLngBounds bounds = builder.build();
+
+                        int width = getResources().getDisplayMetrics().widthPixels;
+                        int height = getResources().getDisplayMetrics().heightPixels;
+                        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+
+                        mMap.animateCamera(cu);
                     }
-        });
+                });
 
         return view;
     }
 
-    private void createMarker(double lat, double lng) {
-        mMap.addMarker(new MarkerOptions()
+    private Marker createMarker(double lat, double lng) {
+       return mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(lat, lng))
                 .anchor(0.5f, 0.5f)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
     }
 
+
+
+
+
     private void createStartMarker(double lat, double lng) {
          mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(lat, lng))
-                .title("start")
+                .title(getString(R.string.marker_start_title))
                 .anchor(0.5f, 0.5f)
                 .icon(BitmapDescriptorFactory.defaultMarker()));
     }
-
-
-
 
     private void initMap(Bundle savedInstanceState) {
         Bundle mapViewBundle = null;

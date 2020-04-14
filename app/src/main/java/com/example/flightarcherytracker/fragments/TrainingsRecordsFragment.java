@@ -83,8 +83,6 @@ public class TrainingsRecordsFragment extends Fragment {
                         .addToBackStack(null)
                         .commit();
                 Log.d(TAG, "onShowMapTrainingClick: " + id);
-                Toast.makeText(getContext(), "Show onMap is clicked", Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
@@ -123,7 +121,6 @@ public class TrainingsRecordsFragment extends Fragment {
                 args.putLong("id", id);
                 fragment.setArguments(args);
                 fragment.show(manager, "ShootListFragment");
-
                 Toast.makeText(getContext(), R.string.shoots_list_toast, Toast.LENGTH_SHORT).show();
             }
         });

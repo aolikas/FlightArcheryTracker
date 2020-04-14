@@ -24,6 +24,10 @@ public interface ShootDao {
     @Query("select shoot_lat,shoot_lng from shoots where training_id = :training_id")
     LiveData<List<Shoot>> getAllShootLatLndByTrainingId(long training_id);
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query("select shoot_lat, shoot_lng, shoot_distance from shoots where training_id = :training_id")
+    LiveData<List<Shoot>> getAllShootLatLngDistByTrainingId(long training_id);
+
     @Insert
     void insertShoot(Shoot shoot);
 

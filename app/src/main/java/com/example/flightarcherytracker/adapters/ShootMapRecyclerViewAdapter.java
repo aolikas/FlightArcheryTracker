@@ -14,11 +14,10 @@ import com.example.flightarcherytracker.R;
 import com.example.flightarcherytracker.entity.Shoot;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -48,12 +47,8 @@ public class ShootMapRecyclerViewAdapter extends RecyclerView.Adapter<ShootMapRe
         final Shoot currentShoot = mShoots.get(position);
 
         holder.tvPosition.setText(String.valueOf(position + 1));
-
         DecimalFormat df = new DecimalFormat("#.##");
-        holder.tvLat.setText(df.format(currentShoot.getShootLat()));
-        holder.tvLng.setText(df.format(currentShoot.getShootLng()));
-
-
+        holder.tvDistance.setText(df.format(currentShoot.getShootDistance()));
         // mList.add(selectedLocation);
 
         holder.setClickListener(new ItemClickListener() {
@@ -70,8 +65,6 @@ public class ShootMapRecyclerViewAdapter extends RecyclerView.Adapter<ShootMapRe
                        .zoom(20f)
                       .build();
                 mMap.moveCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
-
-
             }
         });
 
@@ -83,32 +76,28 @@ public class ShootMapRecyclerViewAdapter extends RecyclerView.Adapter<ShootMapRe
     }
 
     public void setShoots( List<Shoot> shoots, GoogleMap map) {
-
         this.mShoots = shoots;
         this.mMap = map;
         notifyDataSetChanged();
     }
 
 
-    class ShootMapViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    static class ShootMapViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView tvPosition;
-        private TextView tvLat;
-        private TextView tvLng;
+        private TextView tvDistance;
         private CardView singleCard;
         ItemClickListener clickListener;
 
-
-        public ShootMapViewHolder(@NonNull View itemView) {
+        private ShootMapViewHolder(@NonNull View itemView) {
             super(itemView);
             tvPosition = itemView.findViewById(R.id.tv_shoot_map_id);
-            tvLat = itemView.findViewById(R.id.tv_shoot_map_lat);
-            tvLng = itemView.findViewById(R.id.tv_shoot_map_lng);
+            tvDistance = itemView.findViewById(R.id.tv_shoot_map_distance);
             singleCard = itemView.findViewById(R.id.shoot_map_card_view);
             singleCard.setOnClickListener(this);
         }
 
-        public void setClickListener(ItemClickListener itemClickListener) {
+        private void setClickListener(ItemClickListener itemClickListener) {
             this.clickListener = itemClickListener;
         }
 

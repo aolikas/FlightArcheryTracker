@@ -18,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -36,7 +35,7 @@ import com.example.flightarcherytracker.viewModel.TrainingViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Date;
-import java.util.Objects;
+
 
 
 public class MainActivity extends AppCompatActivity
@@ -49,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     private ShootViewModel mShootViewModel;
 
     private long trainingId;
+    private  boolean mCondition = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.delete_all:
                 if(mCondition) {
-                    Toast.makeText(this, "Please make sure that you stop your current training", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.toast_before_delete_all, Toast.LENGTH_LONG).show();
                 } else {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
                     alertDialogBuilder.setTitle(R.string.alert_dialog_delete_all_title);
@@ -150,14 +150,9 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    boolean mCondition = false;
-
-
-
     @Override
     public void shareCondition(boolean condition) {
         Log.d(TAG, "shareCondition: first " + mCondition);
-
         mCondition = condition;
         Log.d(TAG, "shareCondition: " + mCondition);
 

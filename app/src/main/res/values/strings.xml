@@ -48,10 +48,22 @@
     <string name="alert_dialog_stop_training_positive">Yes</string>
     <string name="alert_dialog_stop_training_negative">No</string>
 
-
-
-    <string name="menu_main_clear">Clear Training</string>
     <string name="shoots_list_empty_view_text">There are no any shoots for this training!</string>
     <string name="button_toolbar_arrow_back">Toolbar Arrow back</string>
+    <string name="toast_before_delete_all">Please make sure that you stop your current training</string>
+    <string name="alert_dialog_no_gps_message_part_1">\"This application requires GPS to work properly, \"</string>
+    <string name="alert_dialog_no_gps_message_part_2">do you want to enable it?</string>
+    <string name="alert_dialog_no_gps_positive">Yes</string>
+    <string name="toast_no_google_play_service">Please activate Google Play Service</string>
+    <string name="toast_deny_request_permission">Permission denied by User</string>
+    <string name="toast_start_training">Your training is started</string>
+    <string name="toast_save_shoot">Your shoot is saved</string>
+    <string name="toast_stop_training">\"Your current training is stopped \"</string>
+    <string name="marker_start_title">Start</string>
+    <string name="marker_shoot_part1">\"Shoot # \"</string>
+    <string name="marker_shoot_part_2">\" , distance \"</string>
+    <string name="item_shoot_map_distance">Distance:</string>
+    <string name="item_shoot_map_dist">45</string>
+    <string name="item_shoot_map_meters">m</string>
 
 </resources>

@@ -50,6 +50,10 @@ public class ShootRepository {
         return this.mShootDao.getAllShootLatLndByTrainingId(trainingId);
     }
 
+    public LiveData<List<Shoot>> getAllShootLatLngDistByTrainingId(long trainingId) {
+        return this.mShootDao.getAllShootLatLngDistByTrainingId(trainingId);
+    }
+
 
     /////*******************AsyncTask Classes*****************************************
 

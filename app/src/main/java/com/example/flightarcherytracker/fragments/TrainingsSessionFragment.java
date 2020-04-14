@@ -95,8 +95,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     private TrainingListener mTrainingListener;
     private ShootsListener mShootsListener;
     private ButtonStartListener mButtonListener;
-    boolean buttonCondition = true;
-
 
 
     public TrainingsSessionFragment() {
@@ -165,12 +163,12 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-       // if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-         //       != PackageManager.PERMISSION_GRANTED
-           //     && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
-             //   != PackageManager.PERMISSION_GRANTED) {
-            //return;
-      //  }
+        // if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+        //       != PackageManager.PERMISSION_GRANTED
+        //     && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
+        //   != PackageManager.PERMISSION_GRANTED) {
+        //return;
+        //  }
 
         mMap = googleMap;
         Log.d(TAG, "TrainingSession: onMapReady");
@@ -243,7 +241,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(mStartLat, mStartLng))
-                .title("Start")
+                .title(getString(R.string.marker_start_title))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
         animateCamera(mCurrentLocation);
@@ -278,9 +276,9 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
         DecimalFormat df = new DecimalFormat("#.#");
 
-       Marker shootMarker =  mMap.addMarker(new MarkerOptions()
+        Marker shootMarker = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(shootLat, shootLng))
-                .title("Shoot # " + mShootCount + " , distance " + Double.parseDouble(df.format(distance)))
+                .title(getString(R.string.marker_shoot_part1) + mShootCount + getString(R.string.marker_shoot_part_2) + Double.parseDouble(df.format(distance)))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
 
 
@@ -290,6 +288,8 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         animateCamera(mCurrentLocation);
 
         showDialogForSaveShoot(shootLat, shootLng, distance, shootMarker);
+
+        Toast.makeText(getActivity(), getString(R.string.toast_save_shoot), Toast.LENGTH_SHORT).show();
     }
 
     private void showDialogForSaveShoot(final double lat, final double lng, final double distance, final Marker shootMarker) {
@@ -318,23 +318,20 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                                 distance);
 
                         Log.d(TAG, "sendShoots: " + lat + " " + lng);
-
-                        Toast.makeText(getActivity(), "Shoot is save", Toast.LENGTH_SHORT).show();
                     }
                 });
 
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.dialog_shoot_message_negative),
                 new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                shootMarker.remove();
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        shootMarker.remove();
+                    }
+                });
 
         alertDialog.show();
     }
-
 
 
     private void animateCamera(@NonNull Location location) {
@@ -354,9 +351,9 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
         if (mCurrentLocationMarker == null)
             mCurrentLocationMarker = mMap.addMarker(getMarker(currentLocation.getLatitude(), currentLocation.getLongitude()));
-          //  mCurrentLocationMarker = mMap.addMarker(new MarkerOptions()
+            //  mCurrentLocationMarker = mMap.addMarker(new MarkerOptions()
             //        .icon(SetBitmapDescriptorFromVector.bitmapDescriptorFromVector(getActivity(),
-              //              R.drawable.ic_my_location)).position(latLng));
+            //              R.drawable.ic_my_location)).position(latLng));
         else
             MarkerAnimation.animateMarkerToGB(mCurrentLocationMarker, latLng, new LatLngInterpolator.Spherical());
     }
@@ -365,9 +362,8 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_start_training:
-                boolean condition = true;
                 mButtonListener.shareCondition(true);
-                Log.d(TAG, "onClick: send " + buttonCondition);
+
                 mShootCount = 0;
                 if (mMap != null && mCurrentLocation != null) {
                     Log.d(TAG, "onClick training location: " + mCurrentLocation.getLatitude()
@@ -377,13 +373,12 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                 //changes params for buttons two instead of one
                 mStartTrainingButton.setVisibility(View.GONE);
                 SetParamsForButtons.setParamsForButtons(mStopTrainingButton, mSaveShootButton);
-                Toast.makeText(getActivity(), "Your training is started", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.toast_start_training, Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.btn_save_shoots:
                 mShootCount += 1;
                 getShootsLocation();
-                Toast.makeText(getActivity(), "Your shoot is saved", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.btn_stop_training:
@@ -398,6 +393,8 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
                         mMap.clear();
                         mCurrentLocationMarker = mMap.addMarker(getMarker(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
+
+                        Toast.makeText(getActivity(), R.string.toast_stop_training, Toast.LENGTH_SHORT).show();
 
                         mStopTrainingButton.setVisibility(View.GONE);
                         mSaveShootButton.setVisibility(View.GONE);
@@ -438,7 +435,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     }
 
     public interface ButtonStartListener {
-       void shareCondition(boolean condition);
+        void shareCondition(boolean condition);
     }
 
     @Override
@@ -487,12 +484,11 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     }
 
 
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         Log.d(TAG, "Training: onAttach");
-                if (context instanceof TrainingListener) {
+        if (context instanceof TrainingListener) {
             mTrainingListener = (TrainingListener) context;
         } else {
             throw new RuntimeException(context.toString()
@@ -527,7 +523,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: is called");
         if (requestCode == PERMISSIONS_REQUEST_ENABLE_GPS) {
-              mFusedLocationClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
             startCurrentLocationUpdates();
         }
     }
@@ -541,7 +537,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
             if (grantResults[0] == PackageManager.PERMISSION_DENIED)
-                Toast.makeText(getActivity(), "Permission denied by Users", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.toast_deny_request_permission, Toast.LENGTH_SHORT).show();
             else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) ;
             startCurrentLocationUpdates();
 
@@ -571,7 +567,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                     .getErrorDialog(getActivity(), status, ERROR_DIALOG_REQUEST);
             dialog.show();
         } else {
-            Toast.makeText(getActivity(), "Please install Google Play Service", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.toast_no_google_play_service, Toast.LENGTH_SHORT).show();
         }
         return false;
     }
@@ -589,10 +585,10 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
     private void buildAlertMessageNoGPS() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("This application requires GPS to work properly, " +
-                "do you want to enable it?")
+        builder.setMessage(getString(R.string.alert_dialog_no_gps_message_part_1) +
+                getString(R.string.alert_dialog_no_gps_message_part_2))
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.alert_dialog_no_gps_positive, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog,
                                         @SuppressWarnings("unused") final int id) {
@@ -604,6 +600,4 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
-
 }
