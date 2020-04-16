@@ -336,7 +336,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
     private void animateCamera(@NonNull Location location) {
         final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
         //statt animateCamera
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(getCameraPositionWithBearing(latLng)));
     }
@@ -348,9 +347,10 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
     private void showMarker(@NonNull Location currentLocation) {
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-
-        if (mCurrentLocationMarker == null)
+        if (mCurrentLocationMarker == null) {
             mCurrentLocationMarker = mMap.addMarker(getMarker(currentLocation.getLatitude(), currentLocation.getLongitude()));
+            animateCamera(currentLocation);
+        }
             //  mCurrentLocationMarker = mMap.addMarker(new MarkerOptions()
             //        .icon(SetBitmapDescriptorFromVector.bitmapDescriptorFromVector(getActivity(),
             //              R.drawable.ic_my_location)).position(latLng));

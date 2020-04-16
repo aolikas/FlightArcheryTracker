@@ -6,7 +6,6 @@
 
     <string name="button_start_training">Start training</string>
     <string name="button_save_shoot">Save shoot</string>
-    <string name="button_start_new_training">Start New Training</string>
     <string name="button_stop_current_training">Stop Training</string>
 
 
@@ -36,9 +35,9 @@
     <string name="alert_dialog_delete_positive">Yes</string>
     <string name="alert_dialog_delete_negative">No</string>
 
-    <string name="menu_main_delete">Delete All Training</string>
+    <string name="menu_main_delete">Delete All Trainings</string>
 
-    <string name="alert_dialog_delete_all_title">Confirm All Training Delete</string>
+    <string name="alert_dialog_delete_all_title">Confirm All Trainings Delete</string>
     <string name="alert_dialog_delete_all_message">Are you sure you want to delete all trainings?</string>
     <string name="alert_dialog_delete_all_positive">Yes</string>
     <string name="alert_dialog_delete_all_negative">No</string>
@@ -52,7 +51,7 @@
     <string name="button_toolbar_arrow_back">Toolbar Arrow back</string>
     <string name="toast_before_delete_all">Please make sure that you stop your current training</string>
     <string name="alert_dialog_no_gps_message_part_1">\"This application requires GPS to work properly, \"</string>
-    <string name="alert_dialog_no_gps_message_part_2">do you want to enable it?</string>
+    <string name="alert_dialog_no_gps_message_part_2" translatable="false">do you want to enable it?</string>
     <string name="alert_dialog_no_gps_positive">Yes</string>
     <string name="toast_no_google_play_service">Please activate Google Play Service</string>
     <string name="toast_deny_request_permission">Permission denied by User</string>
@@ -65,5 +64,10 @@
     <string name="item_shoot_map_distance">Distance:</string>
     <string name="item_shoot_map_dist">45</string>
     <string name="item_shoot_map_meters">m</string>
+    <string name="menu_main_select_language">Select Language</string>
+    <string name="menu_main_language_english">English</string>
+    <string name="menu_main_language_russian">Russian</string>
+    <string name="toast_before_change_language">\"Before change a language, please make sure that you stop current training \"</string>
+    <string name="toast_language_selected">Language already selected</string>
 
 </resources>

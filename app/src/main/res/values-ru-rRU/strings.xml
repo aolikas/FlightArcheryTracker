@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>  <string name="app_name">Flight Archery Tracker</string>
+
+    <string name="fragment_title_1">Тренировка</string>
+    <string name="fragment_title_2">Список тренировок</string>
+
+    <string name="button_start_training">Начать тренировку</string>
+    <string name="button_save_shoot">Сохранить выстрел</string>
+    <string name="button_stop_current_training">Остановить тренировку</string>
+
+    <string name="dialog_shoot_message_title">Сохранить информацию о выстреле</string>
+    <string name="dialog_shoot_message_message">Запишите дополнительную информацию по Вашему выстрелу</string>
+    <string name="dialog_shoot_message_hint">Записать тут</string>
+    <string name="dialog_shoot_message_positive">Сохранить выстрел</string>
+    <string name="dialog_shoot_message_negative">Отменть</string>
+
+    <string name="item_training_date">Дата</string>
+    <string name="item_training_title">Тренировка</string>
+    <string name="item_training_id">1</string>
+    <string name="item_training_see_map_shoots">Посмотреть все выстрелы за тренировку</string>
+    <string name="item_training_see_shoots">Посмотреть мои выстрелы</string>
+    <string name="item_training_delete">Удалить тренировку</string>
+    <string name="shoots_list_title">Все выстрелы за эту тренировку</string>
+    <string name="shoots_list_toast">Тут все выстрелы за эту тренировку</string>
+    <string name="item_shoot_title">Выстрел: </string>
+    <string name="item_shoot_id">1</string>
+    <string name="item_shoot_distance_title">Дистанция:</string>
+    <string name="item_shoot_distance">100</string>
+    <string name="item_shoot_meters">метров</string>
+    <string name="item_shoot_description">Комментарии</string>
+
+    <string name="alert_dialog_delete_title">Подтвердите Удаление</string>
+    <string name="alert_dialog_delete_message">Вы уверены, что хотите удалить эту тренировку?</string>
+    <string name="alert_dialog_delete_positive">Да</string>
+    <string name="alert_dialog_delete_negative">Нет</string>
+
+    <string name="menu_main_delete">Удалить все тренировки</string>
+
+    <string name="alert_dialog_delete_all_title">Подтвердите удаление всех тренировок</string>
+    <string name="alert_dialog_delete_all_message">Вы уверены, что хотите удалить все тренировки?</string>
+    <string name="alert_dialog_delete_all_positive">Да</string>
+    <string name="alert_dialog_delete_all_negative">Нет</string>
+
+    <string name="alert_dialog_stop_training_title">Подтвердите прекращение этой тренировки</string>
+    <string name="alert_dialog_stop_training_message">Вы уверены, что хотите прекратить эту тренировку?</string>
+    <string name="alert_dialog_stop_training_positive">Да</string>
+    <string name="alert_dialog_stop_training_negative">Нет</string>
+
+    <string name="shoots_list_empty_view_text">В течении этой тренировки не было сделано ни одного выстрела!</string>
+    <string name="button_toolbar_arrow_back">Toolbar Arrow back</string>
+    <string name="toast_before_delete_all">Пожалуйста убедитесь, что Вы прекратили текущую тренировку</string>
+    <string name="alert_dialog_no_gps_message_part_1">Разрешить приложению доступ к GPS?"</string>
+    <string name="alert_dialog_no_gps_message_part_2"></string>
+    <string name="alert_dialog_no_gps_positive">Да</string>
+    <string name="toast_no_google_play_service">Пожалуйста активируйте Google Play Service</string>
+    <string name="toast_deny_request_permission">Пользователь отклонил разрешение</string>
+    <string name="toast_start_training">Ваша тренировка началась</string>
+    <string name="toast_save_shoot">Выстрел сохранен</string>
+    <string name="toast_stop_training">\"Текущая тренировка прекращена \"</string>
+    <string name="marker_start_title">Старт</string>
+    <string name="marker_shoot_part1">\"Выстрел:  \"</string>
+    <string name="marker_shoot_part_2">\" , дистанция \"</string>
+    <string name="item_shoot_map_distance">Дистанция:</string>
+    <string name="item_shoot_map_dist">45</string>
+    <string name="item_shoot_map_meters">м.</string>
+    <string name="menu_main_select_language">Выбор языка</string>
+    <string name="menu_main_language_english">Английский</string>
+    <string name="menu_main_language_russian">Русский</string>
+    <string name="toast_before_change_language">\"Прежде чем поменять язык приложения, убедитесь что текущая тренировка прекращена\"</string>
+    <string name="toast_language_selected">Язык приложения уже установлен</string>
+
+</resources>

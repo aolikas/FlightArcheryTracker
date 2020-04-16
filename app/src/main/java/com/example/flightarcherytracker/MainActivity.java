@@ -10,9 +10,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,7 +42,7 @@ import com.example.flightarcherytracker.viewModel.TrainingViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Date;
-
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity
@@ -50,11 +57,17 @@ public class MainActivity extends AppCompatActivity
     private long trainingId;
     private  boolean mCondition = false;
 
+
+    private String currentLanguage ="en";
+    private String currentLang;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        currentLanguage = getIntent().getStringExtra(currentLang);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+
 
         TabLayout tabLayout = findViewById(R.id.tab_layout_activity_main);
         ViewPager viewPager = findViewById(R.id.view_pager_activity_main);
@@ -84,7 +97,11 @@ public class MainActivity extends AppCompatActivity
         mTrainingViewModel = new ViewModelProvider(this, new TrainingFactory(getApplication())).get(TrainingViewModel.class);
         mShootViewModel = new ViewModelProvider(this, new ShootsViewModelFactory(getApplication()))
                 .get(ShootViewModel.class);
+
+
     }
+
+
 
     @Override
     public void onTrainingInputListener(Date timestamp, double lat, double lng) {
@@ -107,6 +124,14 @@ public class MainActivity extends AppCompatActivity
 
         Log.d(TAG, "onShootsInputListener: inset " + description + " " + lat + " " + lng
                 + " " + distance + " " + trainingId);
+    }
+
+    @Override
+    public void shareCondition(boolean condition) {
+        Log.d(TAG, "shareCondition: first " + mCondition);
+        mCondition = condition;
+        Log.d(TAG, "shareCondition: " + mCondition);
+
     }
 
     @Override
@@ -143,18 +168,50 @@ public class MainActivity extends AppCompatActivity
                     });
 
                     alertDialogBuilder.show();
-
                 }
                 break;
+
+            case R.id.language_english:
+                if(mCondition) {
+                    Toast.makeText(this, R.string.toast_before_change_language, Toast.LENGTH_LONG).show();
+                } else {
+                    setLocale("en");
+                }
+                break;
+
+            case R.id.language_russian:
+                if(mCondition) {
+                    Toast.makeText(this, R.string.toast_before_change_language, Toast.LENGTH_LONG).show();
+                } else {
+                    setLocale("ru");
+                }
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void shareCondition(boolean condition) {
-        Log.d(TAG, "shareCondition: first " + mCondition);
-        mCondition = condition;
-        Log.d(TAG, "shareCondition: " + mCondition);
 
+    public void setLocale(String language) {
+        if (!language.equals(currentLanguage)) {
+            Locale locale = new Locale(language);
+            Resources res = getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Configuration config = res.getConfiguration();
+
+            if(Build.VERSION.SDK_INT >= 24) {
+                config.setLocale(locale);
+            } else {
+                config.locale = locale;
+            }
+            res.updateConfiguration(config, dm);
+            Intent refresh = new Intent(this, MainActivity.class);
+            refresh.putExtra(currentLang, language);
+            startActivity(refresh);
+        } else {
+            Toast.makeText(this, R.string.toast_language_selected, Toast.LENGTH_SHORT).show();
+        }
     }
+
+
 }
