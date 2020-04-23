@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.send_email:
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[] {"arisiru@hotmail.com"});
+                i.putExtra(Intent.EXTRA_EMAIL, new String[] {""});
                 i.putExtra(Intent.EXTRA_SUBJECT, "feedback");
                 try {
                     startActivity(Intent.createChooser(i, "Send"));
