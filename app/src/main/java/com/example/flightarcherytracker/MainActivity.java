@@ -187,6 +187,17 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
 
+            case R.id.send_email:
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[] {"arisiru@hotmail.com"});
+                i.putExtra(Intent.EXTRA_SUBJECT, "feedback");
+                try {
+                    startActivity(Intent.createChooser(i, "Send"));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(this, "There are no email user installed", Toast.LENGTH_SHORT).show();
+                }
+
         }
         return super.onOptionsItemSelected(item);
     }
