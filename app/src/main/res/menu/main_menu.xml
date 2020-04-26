@@ -2,11 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/delete_all"
-        android:orderInCategory="3"
-        android:title="@string/menu_main_delete"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/select_language"
         android:orderInCategory="1"
         android:title="@string/menu_main_select_language"
@@ -23,9 +18,29 @@
     </item>
 
     <item
-        android:id="@+id/send_email"
+        android:id="@+id/feedback"
         android:orderInCategory="2"
         android:title="@string/menu_main_feedback"
-        app:showAsAction="never"/>
+        app:showAsAction="never">
+        <menu>
+            <item android:id="@+id/feedback_email"
+                android:title="@string/menu_main_feedback_email"/>
+            <item
+                android:id="@+id/feedback_telegram"
+                android:title="@string/menu_main_feedback_telegram"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/delete_all"
+        android:orderInCategory="3"
+        android:title="@string/menu_main_delete"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/support"
+        android:orderInCategory="4"
+        app:showAsAction="never"
+        android:title="Support"/>
 
 </menu>

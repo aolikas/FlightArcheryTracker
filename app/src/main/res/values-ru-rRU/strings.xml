@@ -68,6 +68,8 @@
     <string name="menu_main_language_russian">Русский</string>
     <string name="toast_before_change_language">\"Прежде чем поменять язык приложения, убедитесь что текущая тренировка прекращена\"</string>
     <string name="toast_language_selected">Язык приложения уже установлен</string>
-    <string name="menu_main_feedback">Feedback</string>
+    <string name="menu_main_feedback">Отзыв</string>
+    <string name="menu_main_feedback_email">Email</string>
+    <string name="menu_main_feedback_telegram">Telegram</string>
 
 </resources>

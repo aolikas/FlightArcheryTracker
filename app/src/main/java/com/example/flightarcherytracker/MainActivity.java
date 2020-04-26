@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -187,16 +188,38 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
 
-            case R.id.send_email:
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[] {""});
-                i.putExtra(Intent.EXTRA_SUBJECT, "feedback");
+            case R.id.feedback_email:
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("message/rfc822");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"aolikaspark@gmail.com"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
                 try {
-                    startActivity(Intent.createChooser(i, "Send"));
+                    startActivity(emailIntent);
+                    //startActivity(Intent.createChooser(i, "Send"));
                 } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(this, "There are no email user installed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "There are no user emails installed", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.feedback_telegram:
+                Intent telegramIntent = new Intent(Intent.ACTION_VIEW);
+                telegramIntent.setData(Uri.parse("http://telegram.me/aolika_spark"));
+                try{
+                    startActivity(telegramIntent);
+                } catch (Exception e) {
+                    Toast.makeText(this, "There is no user Telegram installed", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case R.id.support:
+                Intent paypalIntent = new Intent(Intent.ACTION_VIEW);
+                paypalIntent.setData(Uri.parse("https://paypal.me/aolika"));
+                try{
+                    startActivity(paypalIntent);
+                } catch (Exception e) {
+                    Toast.makeText(this, "There is no user Telegram installed", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
 
         }
         return super.onOptionsItemSelected(item);

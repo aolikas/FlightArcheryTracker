@@ -70,5 +70,7 @@
     <string name="toast_before_change_language">\"Before change a language, please make sure that you stop current training \"</string>
     <string name="toast_language_selected">Language already selected</string>
     <string name="menu_main_feedback">Feedback</string>
+    <string name="menu_main_feedback_email">Email</string>
+    <string name="menu_main_feedback_telegram">Telegram</string>
 
 </resources>
