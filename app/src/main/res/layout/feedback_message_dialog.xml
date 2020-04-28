@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/dialog_feedback_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/alert_dialog_feedback_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <View
+        android:id="@+id/dialog_feedback_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/dialog_feedback_title"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/dialog_feedback_message_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_feedback_divider"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/alert_dialog_feedback_message_1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/dialog_feedback_message_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_feedback_message_1"
+        android:gravity="center"
+        android:text="@string/alert_dialog_feedback_message_2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+    <LinearLayout
+        android:id="@+id/dialog_feedback_button_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_feedback_message_2"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:paddingStart="2dp"
+        android:paddingEnd="2dp"
+        android:paddingBottom="2dp"
+        android:weightSum="90">
+
+        <Button
+            android:id="@+id/dialog_feedback_button_dismiss"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:layout_weight="30"
+            android:background="@color/colorPrimary"
+            android:text="@string/alert_dialog_feedback_button_dismiss" />
+
+        <Button
+            android:id="@+id/dialog_feedback_button_telegram"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:layout_weight="30"
+            android:background="@color/colorPrimary"
+            android:text="@string/feedback_button_telegram"
+            android:textColor="@color/colorTextButton" />
+
+        <Button
+            android:id="@+id/dialog_feedback_button_email"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:background="@color/colorPrimary"
+            android:text="@string/feedback_button_email"
+            android:textColor="@color/colorTextButton" />
+    </LinearLayout>
+</RelativeLayout>

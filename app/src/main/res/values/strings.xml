@@ -7,7 +7,7 @@
     <string name="button_start_training">Start training</string>
     <string name="button_save_shoot">Save shoot</string>
     <string name="button_stop_current_training">Stop Training</string>
-
+    <string name="button_toolbar_arrow_back">Toolbar Arrow back</string>
 
     <string name="dialog_shoot_message_title">Save Shoot\'s information</string>
     <string name="dialog_shoot_message_message">Here you can write same info about your shoot</string>
@@ -21,8 +21,11 @@
     <string name="item_training_see_map_shoots">See all shoots for training</string>
     <string name="item_training_see_shoots">See my shoots</string>
     <string name="item_training_delete">Delete Training</string>
+
     <string name="shoots_list_title">Your shoots for this training</string>
     <string name="shoots_list_toast">Here are all shoots for this training</string>
+    <string name="shoots_list_empty_view_text">There are no any shoots for this training!</string>
+
     <string name="item_shoot_title">Shoot #</string>
     <string name="item_shoot_id">1</string>
     <string name="item_shoot_distance_title">Distance:</string>
@@ -47,30 +50,46 @@
     <string name="alert_dialog_stop_training_positive">Yes</string>
     <string name="alert_dialog_stop_training_negative">No</string>
 
-    <string name="shoots_list_empty_view_text">There are no any shoots for this training!</string>
-    <string name="button_toolbar_arrow_back">Toolbar Arrow back</string>
-    <string name="toast_before_delete_all">Please make sure that you stop your current training</string>
-    <string name="alert_dialog_no_gps_message_part_1">\"This application requires GPS to work properly, \"</string>
+    <string name="alert_dialog_no_gps_message_part_1"> This application requires GPS to work properly, </string>
     <string name="alert_dialog_no_gps_message_part_2" translatable="false">do you want to enable it?</string>
     <string name="alert_dialog_no_gps_positive">Yes</string>
+
+    <string name="toast_before_delete_all">Please make sure that you stop your current training</string>
     <string name="toast_no_google_play_service">Please activate Google Play Service</string>
     <string name="toast_deny_request_permission">Permission denied by User</string>
     <string name="toast_start_training">Your training is started</string>
     <string name="toast_save_shoot">Your shoot is saved</string>
-    <string name="toast_stop_training">\"Your current training is stopped \"</string>
+    <string name="toast_stop_training">Your current training is stopped</string>
+    <string name="toast_before_change_language"> Before change a language, please make sure that you stop current training </string>
+    <string name="toast_language_selected">Language already selected</string>
+    <string name="toast_feedback_no_email">There is no email program associated to perform this action</string>
+
     <string name="marker_start_title">Start</string>
-    <string name="marker_shoot_part1">\"Shoot # \"</string>
+    <string name="marker_shoot_part1">"Shoot # "</string>
     <string name="marker_shoot_part_2">\" , distance \"</string>
+
     <string name="item_shoot_map_distance">Distance:</string>
     <string name="item_shoot_map_dist">45</string>
     <string name="item_shoot_map_meters">m</string>
+
     <string name="menu_main_select_language">Select Language</string>
     <string name="menu_main_language_english">English</string>
     <string name="menu_main_language_russian">Russian</string>
-    <string name="toast_before_change_language">\"Before change a language, please make sure that you stop current training \"</string>
-    <string name="toast_language_selected">Language already selected</string>
     <string name="menu_main_feedback">Feedback</string>
     <string name="menu_main_feedback_email">Email</string>
     <string name="menu_main_feedback_telegram">Telegram</string>
+    <string name="menu_main_support">Support Developer</string>
+
+    <string name="alert_dialog_feedback_title">Thank you for using this App</string>
+    <string name="alert_dialog_feedback_message_1">If you find any bugs or you have any questions, offers or remarks, please feel free to send me Email or write directly in Telegram.</string>
+    <string name="alert_dialog_feedback_message_2">Also if you want this App on your native language you can help with translation.</string>
+    <string name="alert_dialog_feedback_button_dismiss">Dismiss</string>
+
+    <string name="feedback_button_telegram">Telegram</string>
+    <string name="feedback_button_email">Email</string>
+    <string name="feedback_email">flightarcheryfeedback@gmail.com</string>
+    <string name="feedback_chooser_message">\"Select an Email Client: \"</string>
+    <string name="toast_feedback_no_telegram">There is no Telegram installed</string>
+
 
 </resources>

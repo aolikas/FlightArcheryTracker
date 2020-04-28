@@ -10,10 +10,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -22,10 +20,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         currentLanguage = getIntent().getStringExtra(currentLang);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 
@@ -98,11 +100,7 @@ public class MainActivity extends AppCompatActivity
         mTrainingViewModel = new ViewModelProvider(this, new TrainingFactory(getApplication())).get(TrainingViewModel.class);
         mShootViewModel = new ViewModelProvider(this, new ShootsViewModelFactory(getApplication()))
                 .get(ShootViewModel.class);
-
-
     }
-
-
 
     @Override
     public void onTrainingInputListener(Date timestamp, double lat, double lng) {
@@ -113,8 +111,6 @@ public class MainActivity extends AppCompatActivity
 
         Log.d(TAG, "onTrainingInputListener: insert " + timestamp + " " + lat + " " + lng);
     }
-
-
 
     @Override
     public void onShootsInputListener(double lat, double lng, String description, double distance) {
@@ -132,7 +128,6 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "shareCondition: first " + mCondition);
         mCondition = condition;
         Log.d(TAG, "shareCondition: " + mCondition);
-
     }
 
     @Override
@@ -170,6 +165,7 @@ public class MainActivity extends AppCompatActivity
 
                     alertDialogBuilder.show();
                 }
+
                 break;
 
             case R.id.language_english:
@@ -178,6 +174,7 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     setLocale("en");
                 }
+
                 break;
 
             case R.id.language_russian:
@@ -186,31 +183,62 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     setLocale("ru");
                 }
+
                 break;
 
-            case R.id.feedback_email:
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                emailIntent.setType("message/rfc822");
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"aolikaspark@gmail.com"});
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
-                try {
-                    startActivity(emailIntent);
-                    //startActivity(Intent.createChooser(i, "Send"));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(this, "There are no user emails installed", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case R.id.feedback_telegram:
-                Intent telegramIntent = new Intent(Intent.ACTION_VIEW);
-                telegramIntent.setData(Uri.parse("http://telegram.me/aolika_spark"));
-                try{
-                    startActivity(telegramIntent);
-                } catch (Exception e) {
-                    Toast.makeText(this, "There is no user Telegram installed", Toast.LENGTH_SHORT).show();
-                }
+            case R.id.feedback:
+                AlertDialog.Builder feedbackDialog = new AlertDialog.Builder(this);
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.feedback_message_dialog, new LinearLayout(this));
+                feedbackDialog.setView(dialogView);
+                Button dismiss = dialogView.findViewById(R.id.dialog_feedback_button_dismiss);
+                Button telegram = dialogView.findViewById(R.id.dialog_feedback_button_telegram);
+                Button email = dialogView.findViewById(R.id.dialog_feedback_button_email);
+
+                final AlertDialog dialog = feedbackDialog.create();
+
+                dismiss.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                telegram.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent telegramIntent = new Intent(Intent.ACTION_VIEW);
+                        telegramIntent.setData(Uri.parse("http://telegram.me/"));
+                        try{
+                            startActivity(telegramIntent);
+                        } catch (Exception e) {
+                            Toast.makeText(getApplication(), R.string.toast_feedback_no_telegram, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                email.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                        emailIntent.setType("message/rfc822");
+                        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {getString(R.string.feedback_email)});
+                        try {
+                            startActivity(Intent.createChooser(emailIntent, getString(R.string.feedback_chooser_message)));
+                        } catch (android.content.ActivityNotFoundException ex) {
+                            Toast.makeText(getApplication(), R.string.toast_feedback_no_email, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                dialog.show();
                 break;
 
-            case R.id.support:
+            case R.id.support_developer:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setTitle("Thank you for using this App");
+                alertDialogBuilder.setMessage("If you like it and want to have it in your native language, you can help me with translation. Please " +
+                        "connect with me using Feedback function. Also you can support a developer directly via PayPal. Also I will be happy ");
                 Intent paypalIntent = new Intent(Intent.ACTION_VIEW);
                 paypalIntent.setData(Uri.parse("https://paypal.me/aolika"));
                 try{
@@ -246,6 +274,4 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, R.string.toast_language_selected, Toast.LENGTH_SHORT).show();
         }
     }
-
-
 }

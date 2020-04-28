@@ -10,37 +10,28 @@
         <menu>
             <item
                 android:id="@+id/language_english"
-                android:title="@string/menu_main_language_english"/>
+                android:title="@string/menu_main_language_english" />
             <item
                 android:id="@+id/language_russian"
-                android:title="@string/menu_main_language_russian"/>
+                android:title="@string/menu_main_language_russian" />
         </menu>
     </item>
 
     <item
         android:id="@+id/feedback"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         android:title="@string/menu_main_feedback"
-        app:showAsAction="never">
-        <menu>
-            <item android:id="@+id/feedback_email"
-                android:title="@string/menu_main_feedback_email"/>
-            <item
-                android:id="@+id/feedback_telegram"
-                android:title="@string/menu_main_feedback_telegram"/>
-        </menu>
-    </item>
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/delete_all"
-        android:orderInCategory="3"
+        android:orderInCategory="2"
         android:title="@string/menu_main_delete"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/support"
+        android:id="@+id/support_developer"
         android:orderInCategory="4"
-        app:showAsAction="never"
-        android:title="Support"/>
-
+        android:title="@string/menu_main_support"
+        app:showAsAction="never" />
 </menu>
