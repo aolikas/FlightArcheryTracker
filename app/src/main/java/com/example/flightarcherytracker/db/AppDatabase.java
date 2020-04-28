@@ -25,10 +25,11 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 
     public abstract TrainingDao getTrainingDao();
+
     public abstract ShootDao getShootDao();
 
     public static synchronized AppDatabase getInstance(Context context) {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                     AppDatabase.class,
                     DATABASE_NAME)
@@ -37,12 +38,10 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static final Migration MIGRATION_1_2 = new Migration(1,2) {
+    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             //there's nothing else to do yet
         }
     };
-
-
 }

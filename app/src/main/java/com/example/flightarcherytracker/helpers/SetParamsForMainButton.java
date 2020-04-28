@@ -2,8 +2,6 @@ package com.example.flightarcherytracker.helpers;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.view.ViewGroup;
@@ -27,14 +25,11 @@ public class SetParamsForMainButton {
 
         startTraining.setBackground(gd);
 
-        int[] colors = new int[] {Color.LTGRAY};
-        int[][] states = new int[][] {new int[]{}};
-        ColorStateList stateList = new ColorStateList(states,colors);
+        int[] colors = new int[]{Color.LTGRAY};
+        int[][] states = new int[][]{new int[]{}};
+        ColorStateList stateList = new ColorStateList(states, colors);
 
-       RippleDrawable ripple = new RippleDrawable(stateList,startTraining.getBackground(), null);
-       startTraining.setBackground(ripple);
-
-
+        RippleDrawable ripple = new RippleDrawable(stateList, startTraining.getBackground(), null);
+        startTraining.setBackground(ripple);
     }
-
 }

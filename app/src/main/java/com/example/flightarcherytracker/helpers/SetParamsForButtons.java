@@ -1,17 +1,15 @@
 package com.example.flightarcherytracker.helpers;
 
-import android.content.Context;
+
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
-import android.view.ContextThemeWrapper;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
-import com.example.flightarcherytracker.R;
 
 public class SetParamsForButtons {
 
@@ -37,16 +35,16 @@ public class SetParamsForButtons {
                 ViewGroup.LayoutParams.WRAP_CONTENT, 50f);
         params1.setMarginEnd(5);
         stopTraining.setLayoutParams(params1);
-      //  startTraining.setBackgroundResource(R.color.colorNewButton);
+        //  startTraining.setBackgroundResource(R.color.colorNewButton);
         stopTraining.setBackground(gdStop);
-      //  startTraining.setBackgroundColor(0xFADA5E);
-      //  startTraining.setText(R.string.button_stop_current_training);
+        //  startTraining.setBackgroundColor(0xFADA5E);
+        //  startTraining.setText(R.string.button_stop_current_training);
 
-        int[] colorsTraining = new int[] {Color.LTGRAY};
-        int[][] statesTraining = new int[][] {new int[]{}};
-        ColorStateList stateListTraining = new ColorStateList(statesTraining,colorsTraining);
+        int[] colorsTraining = new int[]{Color.LTGRAY};
+        int[][] statesTraining = new int[][]{new int[]{}};
+        ColorStateList stateListTraining = new ColorStateList(statesTraining, colorsTraining);
 
-        RippleDrawable rippleTraining = new RippleDrawable(stateListTraining,stopTraining.getBackground(), null);
+        RippleDrawable rippleTraining = new RippleDrawable(stateListTraining, stopTraining.getBackground(), null);
         stopTraining.setBackground(rippleTraining);
 
 
@@ -56,11 +54,11 @@ public class SetParamsForButtons {
         saveShoots.setLayoutParams(params2);
         saveShoots.setBackground(gdSave);
 
-        int[] colorsSave = new int[] {Color.LTGRAY};
-        int[][] statesSave = new int[][] {new int[]{}};
-        ColorStateList stateListSave = new ColorStateList(statesSave,colorsSave);
+        int[] colorsSave = new int[]{Color.LTGRAY};
+        int[][] statesSave = new int[][]{new int[]{}};
+        ColorStateList stateListSave = new ColorStateList(statesSave, colorsSave);
 
-        RippleDrawable rippleSave = new RippleDrawable(stateListSave,saveShoots.getBackground(), null);
+        RippleDrawable rippleSave = new RippleDrawable(stateListSave, saveShoots.getBackground(), null);
         saveShoots.setBackground(rippleSave);
     }
 }

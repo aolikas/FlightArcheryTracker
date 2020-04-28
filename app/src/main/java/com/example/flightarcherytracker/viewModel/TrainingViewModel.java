@@ -16,11 +16,11 @@ public class TrainingViewModel extends AndroidViewModel {
 
     private TrainingRepository mTrainingRepository;
     private LiveData<List<Training>> mAllTrainings;
- //   private final long id;
+    //   private final long id;
 
     public TrainingViewModel(@NonNull Application application) {
         super(application);
-      //  this.id = id;
+        //  this.id = id;
         mTrainingRepository = new TrainingRepository(application);
         mAllTrainings = mTrainingRepository.getAllTrainings();
     }

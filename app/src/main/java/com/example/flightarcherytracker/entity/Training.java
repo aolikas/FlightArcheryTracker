@@ -2,7 +2,6 @@ package com.example.flightarcherytracker.entity;
 
 import android.annotation.SuppressLint;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -44,7 +43,9 @@ public class Training {
         return id;
     }
 
-    public Date getTrainingDate() { return trainingDate; }
+    public Date getTrainingDate() {
+        return trainingDate;
+    }
 
     public Double getTrainingLat() {
         return trainingLat;

@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class ShootMapRecyclerViewAdapter extends RecyclerView.Adapter<ShootMapRecyclerViewAdapter.ShootMapViewHolder> {
 
     private static final String TAG = "ADAPTER";
@@ -58,12 +57,12 @@ public class ShootMapRecyclerViewAdapter extends RecyclerView.Adapter<ShootMapRe
 
                 final double lat = currentShoot.getShootLat();
                 final double lng = currentShoot.getShootLng();
-                final LatLng selectedLocation = new LatLng(lat,lng);
+                final LatLng selectedLocation = new LatLng(lat, lng);
 
                 CameraPosition newCameraPosition = new CameraPosition.Builder()
-                       .target(selectedLocation)
-                       .zoom(20f)
-                      .build();
+                        .target(selectedLocation)
+                        .zoom(20f)
+                        .build();
                 mMap.moveCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
             }
         });
@@ -75,7 +74,7 @@ public class ShootMapRecyclerViewAdapter extends RecyclerView.Adapter<ShootMapRe
         return mShoots.size();
     }
 
-    public void setShoots( List<Shoot> shoots, GoogleMap map) {
+    public void setShoots(List<Shoot> shoots, GoogleMap map) {
         this.mShoots = shoots;
         this.mMap = map;
         notifyDataSetChanged();

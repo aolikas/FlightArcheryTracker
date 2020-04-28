@@ -86,7 +86,6 @@ public class ShootRepository {
         }
     }
 
-
     private static class DeleteShootAsyncTask extends AsyncTask<Shoot, Void, Void> {
         private ShootDao shootDao;
 
@@ -100,7 +99,6 @@ public class ShootRepository {
             return null;
         }
     }
-
 
     private static class DeleteAllShootsAsyncTask extends AsyncTask<Void, Void, Void> {
         private ShootDao shootDao;

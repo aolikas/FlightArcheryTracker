@@ -20,7 +20,7 @@
             android:elevation="6dp"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
-            <include layout="@layout/activity_main_toolbar"/>
+            <include layout="@layout/activity_main_toolbar" />
 
 
         </androidx.appcompat.widget.Toolbar>

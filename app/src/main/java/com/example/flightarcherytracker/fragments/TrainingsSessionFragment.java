@@ -350,11 +350,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         if (mCurrentLocationMarker == null) {
             mCurrentLocationMarker = mMap.addMarker(getMarker(currentLocation.getLatitude(), currentLocation.getLongitude()));
             animateCamera(currentLocation);
-        }
-            //  mCurrentLocationMarker = mMap.addMarker(new MarkerOptions()
-            //        .icon(SetBitmapDescriptorFromVector.bitmapDescriptorFromVector(getActivity(),
-            //              R.drawable.ic_my_location)).position(latLng));
-        else
+        } else
             MarkerAnimation.animateMarkerToGB(mCurrentLocationMarker, latLng, new LatLngInterpolator.Spherical());
     }
 
@@ -540,7 +536,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                 Toast.makeText(getActivity(), R.string.toast_deny_request_permission, Toast.LENGTH_SHORT).show();
             else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) ;
             startCurrentLocationUpdates();
-
         }
     }
 

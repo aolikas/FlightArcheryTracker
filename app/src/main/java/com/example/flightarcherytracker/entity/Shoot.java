@@ -1,6 +1,5 @@
 package com.example.flightarcherytracker.entity;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -50,7 +49,9 @@ public class Shoot {
         this.shootId = shootId;
     }
 
-    public String getShootDescription() { return shootDescription; }
+    public String getShootDescription() {
+        return shootDescription;
+    }
 
     public Double getShootLat() {
         return shootLat;

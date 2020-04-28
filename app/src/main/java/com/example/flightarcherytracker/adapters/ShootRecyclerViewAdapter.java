@@ -48,7 +48,7 @@ public class ShootRecyclerViewAdapter extends RecyclerView.Adapter<ShootRecycler
         notifyDataSetChanged();
     }
 
-    class ShootViewHolder extends RecyclerView.ViewHolder {
+    static class ShootViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvPosition;
         private TextView tvDistance;

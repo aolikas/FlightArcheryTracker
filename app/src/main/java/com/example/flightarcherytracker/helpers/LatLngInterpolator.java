@@ -1,6 +1,5 @@
 package com.example.flightarcherytracker.helpers;
 
-import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -14,8 +13,6 @@ import static java.lang.Math.toDegrees;
 import static java.lang.Math.toRadians;
 
 public interface LatLngInterpolator {
-
-
 
     LatLng interpolate(float fraction, LatLng a, LatLng b);
 
@@ -53,7 +50,6 @@ public interface LatLngInterpolator {
             return new LatLng(toDegrees(lat), toDegrees(lng));
 
         }
-
 
         private double computeAngelBetween(double fromLat, double fromLng,
                                            double toLat, double toLng) {

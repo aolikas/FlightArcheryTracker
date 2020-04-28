@@ -1,7 +1,6 @@
 package com.example.flightarcherytracker;
 
 
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -57,10 +56,10 @@ public class MainActivity extends AppCompatActivity
     private ShootViewModel mShootViewModel;
 
     private long trainingId;
-    private  boolean mCondition = false;
+    private boolean mCondition = false;
 
 
-    private String currentLanguage ="en";
+    private String currentLanguage = "en";
     private String currentLang;
 
     @Override
@@ -143,7 +142,7 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()) {
 
             case R.id.delete_all:
-                if(mCondition) {
+                if (mCondition) {
                     Toast.makeText(this, R.string.toast_before_delete_all, Toast.LENGTH_LONG).show();
                 } else {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -169,7 +168,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.language_english:
-                if(mCondition) {
+                if (mCondition) {
                     Toast.makeText(this, R.string.toast_before_change_language, Toast.LENGTH_LONG).show();
                 } else {
                     setLocale("en");
@@ -178,7 +177,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.language_russian:
-                if(mCondition) {
+                if (mCondition) {
                     Toast.makeText(this, R.string.toast_before_change_language, Toast.LENGTH_LONG).show();
                 } else {
                     setLocale("ru");
@@ -187,20 +186,21 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.feedback:
-                AlertDialog.Builder feedbackDialog = new AlertDialog.Builder(this);
-                LayoutInflater inflater = getLayoutInflater();
-                View dialogView = inflater.inflate(R.layout.feedback_message_dialog, new LinearLayout(this));
-                feedbackDialog.setView(dialogView);
-                Button dismiss = dialogView.findViewById(R.id.dialog_feedback_button_dismiss);
-                Button telegram = dialogView.findViewById(R.id.dialog_feedback_button_telegram);
-                Button email = dialogView.findViewById(R.id.dialog_feedback_button_email);
 
-                final AlertDialog dialog = feedbackDialog.create();
+                AlertDialog.Builder feedbackDialogBuilder = new AlertDialog.Builder(this);
+                LayoutInflater inflaterFeedback = getLayoutInflater();
+                View dialogViewFeedback = inflaterFeedback.inflate(R.layout.feedback_message_dialog, new LinearLayout(this));
+                feedbackDialogBuilder.setView(dialogViewFeedback);
+                Button dismiss = dialogViewFeedback.findViewById(R.id.dialog_feedback_button_dismiss);
+                Button telegram = dialogViewFeedback.findViewById(R.id.dialog_feedback_button_telegram);
+                Button email = dialogViewFeedback.findViewById(R.id.dialog_feedback_button_email);
+
+                final AlertDialog dialogFeedback = feedbackDialogBuilder.create();
 
                 dismiss.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialog.dismiss();
+                        dialogFeedback.dismiss();
                     }
                 });
 
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity
                     public void onClick(View v) {
                         Intent telegramIntent = new Intent(Intent.ACTION_VIEW);
                         telegramIntent.setData(Uri.parse("http://telegram.me/"));
-                        try{
+                        try {
                             startActivity(telegramIntent);
                         } catch (Exception e) {
                             Toast.makeText(getApplication(), R.string.toast_feedback_no_telegram, Toast.LENGTH_SHORT).show();
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity
                     public void onClick(View v) {
                         Intent emailIntent = new Intent(Intent.ACTION_SEND);
                         emailIntent.setType("message/rfc822");
-                        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {getString(R.string.feedback_email)});
+                        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.feedback_email)});
                         try {
                             startActivity(Intent.createChooser(emailIntent, getString(R.string.feedback_chooser_message)));
                         } catch (android.content.ActivityNotFoundException ex) {
@@ -231,24 +231,39 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
 
-                dialog.show();
+                dialogFeedback.show();
                 break;
 
             case R.id.support_developer:
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                alertDialogBuilder.setTitle("Thank you for using this App");
-                alertDialogBuilder.setMessage("If you like it and want to have it in your native language, you can help me with translation. Please " +
-                        "connect with me using Feedback function. Also you can support a developer directly via PayPal. Also I will be happy ");
-                Intent paypalIntent = new Intent(Intent.ACTION_VIEW);
-                paypalIntent.setData(Uri.parse("https://paypal.me/aolika"));
-                try{
-                    startActivity(paypalIntent);
-                } catch (Exception e) {
-                    Toast.makeText(this, "There is no user Telegram installed", Toast.LENGTH_SHORT).show();
-                }
+                AlertDialog.Builder supportDialogBuilder = new AlertDialog.Builder(this);
+                LayoutInflater inflaterSupport = getLayoutInflater();
+                View dialogViewSupport = inflaterSupport.inflate(R.layout.support_developer_message_dialog, new LinearLayout(this));
+                supportDialogBuilder.setView(dialogViewSupport);
+
+                final AlertDialog dialogSupport = supportDialogBuilder.create();
+
+                dialogSupport.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.alert_dialog_support_dev_positive), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent paypalIntent = new Intent(Intent.ACTION_VIEW);
+                        paypalIntent.setData(Uri.parse("https://paypal.me/aolika"));
+                        try {
+                            startActivity(paypalIntent);
+                        } catch (Exception e) {
+                            Log.d(TAG, "support dev " + e.toString());
+                        }
+                    }
+                });
+
+                dialogSupport.setButton(DialogInterface.BUTTON_NEGATIVE, "Dismiss", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialogSupport.show();
                 break;
-
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -261,7 +276,7 @@ public class MainActivity extends AppCompatActivity
             DisplayMetrics dm = res.getDisplayMetrics();
             Configuration config = res.getConfiguration();
 
-            if(Build.VERSION.SDK_INT >= 24) {
+            if (Build.VERSION.SDK_INT >= 24) {
                 config.setLocale(locale);
             } else {
                 config.locale = locale;

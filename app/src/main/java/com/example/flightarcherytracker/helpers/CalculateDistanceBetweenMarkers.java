@@ -27,6 +27,4 @@ public class CalculateDistanceBetweenMarkers {
     private static double haversin(double value) {
         return Math.pow(Math.sin(value / 2), 2);
     }
-
-
 }

@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-public class ShootsViewModelFactory  extends ViewModelProvider.NewInstanceFactory {
+public class ShootsViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     @NonNull
     private final Application application;
@@ -18,7 +18,7 @@ public class ShootsViewModelFactory  extends ViewModelProvider.NewInstanceFactor
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if(modelClass == ShootViewModel.class) {
+        if (modelClass == ShootViewModel.class) {
             return (T) new ShootViewModel(application);
         }
         return null;

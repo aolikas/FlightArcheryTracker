@@ -20,14 +20,14 @@
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:padding="10dp"
-        android:weightSum="90">
+        android:weightSum="100">
 
         <Button
             android:id="@+id/btn_start_training"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="30"
+            android:layout_weight="33"
             android:text="@string/button_start_training"
             android:textColor="@color/colorTextButton"
             android:textStyle="bold" />
@@ -37,7 +37,7 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="30"
+            android:layout_weight="33"
             android:text="@string/button_stop_current_training"
             android:textColor="@color/colorTextButton"
             android:textStyle="bold" />
@@ -47,7 +47,7 @@
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="30"
+            android:layout_weight="33"
             android:text="@string/button_save_shoot"
             android:textColor="@color/colorTextButton"
             android:textStyle="bold" />

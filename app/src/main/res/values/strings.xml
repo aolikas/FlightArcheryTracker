@@ -90,6 +90,9 @@
     <string name="feedback_email">flightarcheryfeedback@gmail.com</string>
     <string name="feedback_chooser_message">\"Select an Email Client: \"</string>
     <string name="toast_feedback_no_telegram">There is no Telegram installed</string>
+    <string name="alert_dialog_support_dev_title">Thank you for using this App</string>
+    <string name="alert_dialog_support_dev_message">This App is free of charge. If you like it you always can support a developer via PayPal.</string>
+    <string name="alert_dialog_support_dev_positive">PayPal</string>
 
 
 </resources>

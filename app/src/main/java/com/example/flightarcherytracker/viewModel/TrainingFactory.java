@@ -12,12 +12,13 @@ public class TrainingFactory extends ViewModelProvider.NewInstanceFactory {
     private final Application application;
 
     public TrainingFactory(@NonNull Application application) {
-    this.application = application;
+        this.application = application;
     }
+
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if(modelClass == TrainingViewModel.class) {
+        if (modelClass == TrainingViewModel.class) {
             return (T) new TrainingViewModel(application);
         }
         return null;

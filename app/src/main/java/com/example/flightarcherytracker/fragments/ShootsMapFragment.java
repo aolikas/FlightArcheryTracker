@@ -3,9 +3,6 @@ package com.example.flightarcherytracker.fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -29,7 +26,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -61,6 +57,7 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
     public ShootsMapFragment() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,7 +67,7 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
 
         initMap(savedInstanceState);
 
-       // Toolbar toolbar = getActivity().findViewById(R.id.toolbar_activity_main);
+        // Toolbar toolbar = getActivity().findViewById(R.id.toolbar_activity_main);
         mLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar_back_arrow_container);
         mLayout.setVisibility(View.VISIBLE);
         ImageButton backArrow = getActivity().findViewById(R.id.btn_toolbar_arrow_back);
@@ -104,9 +101,9 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
 
                         mStartMarker = createStartMarker(mStartLat, mStartLng);
 
-                        for(int i = 0; i <list.size(); i += 1) {
+                        for (int i = 0; i < list.size(); i += 1) {
                             Marker shootMarker = createShootMarker(list.get(i).getShootLat()
-                                                , list.get(i).getShootLng());
+                                    , list.get(i).getShootLng());
                             mMarkers.add(shootMarker);
                         }
                         showAllMarkers(mStartMarker, mMarkers);
@@ -120,7 +117,7 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         builder.include(startMarker.getPosition());
 
-        for(int i = 0; i < markers.size(); i += 1) {
+        for (int i = 0; i < markers.size(); i += 1) {
             builder.include(markers.get(i).getPosition());
         }
 
@@ -137,14 +134,14 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
     }
 
     private Marker createShootMarker(double lat, double lng) {
-       return mMap.addMarker(new MarkerOptions()
+        return mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(lat, lng))
                 .anchor(0.5f, 0.5f)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
     }
 
     private Marker createStartMarker(double lat, double lng) {
-       return   mMap.addMarker(new MarkerOptions()
+        return mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(lat, lng))
                 .title(getString(R.string.marker_start_title))
                 .anchor(0.5f, 0.5f)
@@ -244,28 +241,4 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
         Log.d(TAG, "Training: onLowMemory");
         mMapView.onLowMemory();
     }
-
-
-
-    //     shootViewModel.getAllShootsLatLngByTrainingId(trainingId).observe(getViewLifecycleOwner(),
-    //           new Observer<List<Shoot>>() {
-    //             @Override
-    //           public void onChanged(List<Shoot> list) {
-    //             adapter.setShoots(list, mMap);
-
-    //           createStartMarker(startLat, startLng);
-    //         final LatLng startLocation = new LatLng(startLat, startLng);
-    //       CameraPosition newCameraPosition = new CameraPosition.Builder()
-    //             .target(startLocation)
-    //           .zoom(20f)
-    //         .build();
-    //      mMap.moveCamera(CameraUpdateFactory.newCameraPosition(newCameraPosition));
-
-    //    for(int i = 0; i < list.size(); i += 1) {
-    //      createMarker(list.get(i).getShootLat()
-    //            , list.get(i).getShootLng());
-    //      }
-    //}
-    //  });
-
 }

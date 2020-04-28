@@ -52,6 +52,6 @@ public class ShootViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Shoot>> getAllShootLatLngDistByTrainingId(long trainingId) {
-        return  mShootRepository.getAllShootLatLngDistByTrainingId(trainingId);
+        return mShootRepository.getAllShootLatLngDistByTrainingId(trainingId);
     }
 }
