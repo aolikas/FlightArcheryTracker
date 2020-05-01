@@ -1,6 +1,5 @@
 package com.example.flightarcherytracker.fragments;
 
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -58,11 +57,11 @@ public class RecyclerViewShootsTest {
                 .perform(ViewActions.click());
 
         onView(withId(R.id.fragment_records_rv)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.tv_training_show_shoots)));
+                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.tv_training_show_shots)));
 
         onView(allOf(
                 withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
-                withId(R.id.fragment_shoots_rv)))
+                withId(R.id.fragment_shots_rv)))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
     }
 
@@ -75,9 +74,9 @@ public class RecyclerViewShootsTest {
                 .perform(ViewActions.click());
 
         onView(withId(R.id.fragment_records_rv)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.tv_training_show_shoots)));
+                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.tv_training_show_shots)));
 
-        onView(withId(R.id.fragment_shoots_rv))
+        onView(withId(R.id.fragment_shots_rv))
                 .perform(RecyclerViewActions.scrollToPosition(2));
 
     }

@@ -9,8 +9,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
+        android:padding="2dp"
         android:text="@string/alert_dialog_feedback_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -29,6 +31,7 @@
         android:layout_below="@+id/dialog_feedback_divider"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
+        android:padding="2dp"
         android:gravity="center"
         android:text="@string/alert_dialog_feedback_message_1"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -39,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/dialog_feedback_message_1"
         android:gravity="center"
+        android:padding="2dp"
         android:text="@string/alert_dialog_feedback_message_2"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -55,35 +59,30 @@
         android:paddingBottom="2dp"
         android:weightSum="90">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/dialog_feedback_button_dismiss"
-            style="?android:attr/buttonBarButtonStyle"
+            style="@style/FeedbackDialogButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
             android:layout_weight="30"
-            android:background="@color/colorPrimary"
             android:text="@string/alert_dialog_feedback_button_dismiss" />
 
         <Button
             android:id="@+id/dialog_feedback_button_telegram"
-            style="?android:attr/buttonBarButtonStyle"
+            style="@style/FeedbackDialogButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="3dp"
             android:layout_weight="30"
-            android:background="@color/colorPrimary"
-            android:text="@string/feedback_button_telegram"
-            android:textColor="@color/colorTextButton" />
+            android:text="@string/alert_dialog_feedback_button_telegram" />
 
         <Button
             android:id="@+id/dialog_feedback_button_email"
-            style="?android:attr/buttonBarButtonStyle"
+            style="@style/FeedbackDialogButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="30"
-            android:background="@color/colorPrimary"
-            android:text="@string/feedback_button_email"
-            android:textColor="@color/colorTextButton" />
+            android:text="@string/alert_dialog_feedback_button_email"/>
     </LinearLayout>
 </RelativeLayout>

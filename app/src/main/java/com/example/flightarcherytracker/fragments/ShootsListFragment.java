@@ -36,10 +36,10 @@ public class ShootsListFragment extends DialogFragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_shoots_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_shots_list, container, false);
 
         final TextView emptyViewText = view.findViewById(R.id.fragment_shots_empty_view);
-        final RecyclerView recyclerView = view.findViewById(R.id.fragment_shoots_rv);
+        final RecyclerView recyclerView = view.findViewById(R.id.fragment_shots_rv);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);

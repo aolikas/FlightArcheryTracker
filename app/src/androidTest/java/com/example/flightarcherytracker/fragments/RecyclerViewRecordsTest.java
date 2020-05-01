@@ -73,10 +73,10 @@ public class RecyclerViewRecordsTest {
                 .perform(ViewActions.click());
 
         onView(withId(R.id.fragment_records_rv)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.tv_training_show_shoots)));
+                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.tv_training_show_shots)));
 
         onView(withId(R.id.fragment_records_rv)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.iv_training_show_map_shoots)));
+                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.iv_training_show_map_shots)));
 
         onView(withId(R.id.fragment_records_rv)).perform(
                 RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.iv_training_delete)));

@@ -23,23 +23,23 @@
             android:paddingBottom="5dp">
 
             <TextView
-                android:id="@+id/tv_shoot_map_title"
+                android:id="@+id/tv_shot_map_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="@string/item_shoot_title"
+                android:text="@string/item_shot_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
-                android:id="@+id/tv_shoot_map_id"
+                android:id="@+id/tv_shot_map_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="20dp"
-                android:layout_toEndOf="@id/tv_shoot_map_title"
-                android:text="@string/item_shoot_id"
+                android:layout_toEndOf="@id/tv_shot_map_title"
+                android:text="@string/item_shot_id"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         </RelativeLayout>
@@ -49,29 +49,29 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_shoot_map_distance_text"
+                android:id="@+id/tv_shot_map_distance_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:text="@string/item_shoot_map_distance"
+                android:text="@string/item_shot_map_distance"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
-                android:id="@+id/tv_shoot_map_distance"
+                android:id="@+id/tv_shot_map_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_toEndOf="@+id/tv_shoot_map_distance_text"
-                android:text="@string/item_shoot_map_dist"
+                android:layout_toEndOf="@+id/tv_shot_map_distance_text"
+                android:text="@string/item_shot_map_dist"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
-                android:id="@+id/tv_shoot_map_distance_meters"
+                android:id="@+id/tv_shot_map_distance_meters"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_toEndOf="@+id/tv_shoot_map_distance"
-                android:text="@string/item_shoot_map_meters"
+                android:layout_toEndOf="@+id/tv_shot_map_distance"
+                android:text="@string/item_shot_map_meters"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
         </RelativeLayout>
     </LinearLayout>

@@ -54,24 +54,24 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/iv_training_show_map_shoots"
+                android:id="@+id/iv_training_show_map_shots"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="5dp"
-                android:layout_toStartOf="@+id/tv_training_show_shoots"
-                android:contentDescription="@string/item_training_see_map_shoots"
+                android:layout_toStartOf="@+id/tv_training_show_shots"
+                android:contentDescription="@string/item_training_see_map_shots"
                 android:src="@drawable/ic_location_on" />
 
             <TextView
-                android:id="@+id/tv_training_show_shoots"
+                android:id="@+id/tv_training_show_shots"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="25dp"
-                android:text="@string/item_training_see_shoots"
+                android:text="@string/item_training_see_shots"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <ImageView
@@ -83,7 +83,7 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
-                android:layout_toEndOf="@+id/tv_training_show_shoots"
+                android:layout_toEndOf="@+id/tv_training_show_shots"
                 android:contentDescription="@string/item_training_delete"
                 android:src="@drawable/ic_delete" />
         </RelativeLayout>

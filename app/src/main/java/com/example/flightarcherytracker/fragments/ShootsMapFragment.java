@@ -62,8 +62,8 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_shoots_map, container, false);
-        mMapView = view.findViewById(R.id.map_view_shoots);
+        View view = inflater.inflate(R.layout.fragment_shots_map, container, false);
+        mMapView = view.findViewById(R.id.map_view_shots);
 
         initMap(savedInstanceState);
 
@@ -74,7 +74,7 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
         backArrow.setOnClickListener(this);
 
 
-        RecyclerView recyclerView = view.findViewById(R.id.fragment_shoots_map_rv);
+        RecyclerView recyclerView = view.findViewById(R.id.fragment_shots_map_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, true));
         recyclerView.setHasFixedSize(true);

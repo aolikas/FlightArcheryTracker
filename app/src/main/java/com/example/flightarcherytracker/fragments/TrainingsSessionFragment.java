@@ -278,7 +278,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
         Marker shootMarker = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(shootLat, shootLng))
-                .title(getString(R.string.marker_shoot_part1) + mShootCount + getString(R.string.marker_shoot_part_2) + Double.parseDouble(df.format(distance)))
+                .title(getString(R.string.marker_shot_part1) + mShootCount + getString(R.string.marker_shot_part_2) + Double.parseDouble(df.format(distance)))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
 
 
@@ -289,50 +289,48 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
         showDialogForSaveShoot(shootLat, shootLng, distance, shootMarker);
 
-        Toast.makeText(getActivity(), getString(R.string.toast_save_shoot), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), getString(R.string.toast_save_shot), Toast.LENGTH_SHORT).show();
     }
 
     private void showDialogForSaveShoot(final double lat, final double lng, final double distance, final Marker shootMarker) {
 
-        View messageView = Objects.requireNonNull(getActivity()).getLayoutInflater().inflate(R.layout.shoot_message_dialog,
+        View descriptionDialogView = Objects.requireNonNull(getActivity()).getLayoutInflater().inflate(R.layout.dialog_shot_description,
                 new LinearLayout(getActivity()), false);
 
-        mShootDescriptionEt = messageView.findViewById(R.id.dialog_shoot_message_description);
+        mShootDescriptionEt = descriptionDialogView.findViewById(R.id.dialog_shot_description_message);
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        alertDialogBuilder.setView(messageView);
-        alertDialogBuilder.setCancelable(true);
+        AlertDialog.Builder descriptionDialogBuilder = new AlertDialog.Builder(getActivity());
+        descriptionDialogBuilder.setView(descriptionDialogView);
+        descriptionDialogBuilder.setCancelable(true);
 
-        final AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.setTitle(getString(R.string.dialog_shoot_message_title));
+        Button saveShootBtn = descriptionDialogView.findViewById(R.id.dialog_shot_description_button_save);
+        Button cancelShootBtn = descriptionDialogView.findViewById(R.id.dialog_shot_description_button_cancel);
+
+        final AlertDialog saveShootDialog = descriptionDialogBuilder.create();
+
+        saveShootBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String description = mShootDescriptionEt.getText().toString();
+                mShootsListener.onShootsInputListener(lat, lng, description,
+                        distance);
+
+                Log.d(TAG, "sendShoots: " + lat + " " + lng);
+                saveShootDialog.dismiss();
+            }
+        });
 
 
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.dialog_shoot_message_positive),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+       cancelShootBtn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               saveShootDialog.cancel();
+               shootMarker.remove();
+           }
+       });
+       saveShootDialog.show();
 
-                        String description = mShootDescriptionEt.getText().toString();
-
-                        mShootsListener.onShootsInputListener(lat, lng, description,
-                                distance);
-
-                        Log.d(TAG, "sendShoots: " + lat + " " + lng);
-                    }
-                });
-
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.dialog_shoot_message_negative),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        shootMarker.remove();
-                    }
-                });
-
-        alertDialog.show();
     }
-
 
     private void animateCamera(@NonNull Location location) {
         final LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -379,14 +377,20 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
             case R.id.btn_stop_training:
                 mButtonListener.shareCondition(false);
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                View stopTrainingView = Objects.requireNonNull(getActivity()).getLayoutInflater().inflate(R.layout.dialog_stop_training,
+                        new LinearLayout(getActivity()), false);
+                AlertDialog.Builder stopTrainingDialogBuilder = new AlertDialog.Builder(getActivity());
+                stopTrainingDialogBuilder.setView(stopTrainingView);
+                stopTrainingDialogBuilder.setCancelable(true);
 
-                alertDialogBuilder.setTitle(R.string.alert_dialog_stop_training_title);
-                alertDialogBuilder.setMessage(R.string.alert_dialog_stop_training_message);
-                alertDialogBuilder.setPositiveButton(R.string.alert_dialog_stop_training_positive, new DialogInterface.OnClickListener() {
+                Button positive = stopTrainingView.findViewById(R.id.dialog_stop_training_yes);
+                Button negative = stopTrainingView.findViewById(R.id.dialog_stop_training_no);
+
+                final AlertDialog stopTrainingDialog = stopTrainingDialogBuilder.create();
+
+                positive.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
+                    public void onClick(View v) {
                         mMap.clear();
                         mCurrentLocationMarker = mMap.addMarker(getMarker(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()));
 
@@ -396,18 +400,19 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                         mSaveShootButton.setVisibility(View.GONE);
                         mStartTrainingButton.setVisibility(View.VISIBLE);
                         SetParamsForMainButton.setParamsForTrainingButton(mStartTrainingButton);
+                        stopTrainingDialog.dismiss();
                     }
                 });
 
-                alertDialogBuilder.setNegativeButton(R.string.alert_dialog_stop_training_negative, new DialogInterface.OnClickListener() {
+                negative.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
+                    public void onClick(View v) {
+                        stopTrainingDialog.cancel();
                     }
                 });
 
-                alertDialogBuilder.show();
 
+                stopTrainingDialog.show();
                 break;
         }
 
@@ -580,8 +585,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
     private void buildAlertMessageNoGPS() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(getString(R.string.alert_dialog_no_gps_message_part_1) +
-                getString(R.string.alert_dialog_no_gps_message_part_2))
+        builder.setMessage(getString(R.string.alert_dialog_no_gps_message_part))
                 .setCancelable(false)
                 .setPositiveButton(R.string.alert_dialog_no_gps_positive, new DialogInterface.OnClickListener() {
                     @Override

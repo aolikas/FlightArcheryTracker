@@ -47,7 +47,7 @@ public class AlertDialogDeleteAllTest {
             onView(withId(R.id.delete_all)).perform(click());
         } catch (NoMatchingViewException e) {
             openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-            onView(withText(R.string.menu_main_delete)).perform(click());
+            onView(withText(R.string.menu_main_delete_all)).perform(click());
         }
 
         onView(withText(R.string.alert_dialog_delete_all_title))
@@ -62,7 +62,7 @@ public class AlertDialogDeleteAllTest {
             onView(withId(R.id.delete_all)).perform(click());
         } catch (NoMatchingViewException e) {
             openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-            onView(withText(R.string.menu_main_delete)).perform(click());
+            onView(withText(R.string.menu_main_delete_all)).perform(click());
         }
 
         onView(withId(android.R.id.button1))
@@ -79,7 +79,7 @@ public class AlertDialogDeleteAllTest {
             onView(withId(R.id.delete_all)).perform(click());
         } catch (NoMatchingViewException e) {
             openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-            onView(withText(R.string.menu_main_delete)).perform(click());
+            onView(withText(R.string.menu_main_delete_all)).perform(click());
         }
 
         onView(withId(android.R.id.button2))

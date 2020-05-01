@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.flightarcherytracker.R;
@@ -90,24 +92,35 @@ public class TrainingsRecordsFragment extends Fragment {
             @Override
             public void onDeleteTrainingClick(final int position) {
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
-                alertDialogBuilder.setTitle(R.string.alert_dialog_delete_title);
-                alertDialogBuilder.setMessage(R.string.alert_dialog_delete_message);
-                alertDialogBuilder.setPositiveButton(R.string.alert_dialog_delete_positive, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mTrainingViewModel.deleteTraining(adapter.getTrainingAt(position));
-                    }
-                });
+                View deleteTrainingView = Objects.requireNonNull(getActivity()).getLayoutInflater().inflate(R.layout.dialog_delete_training,
+                        new LinearLayout(getActivity()), false);
 
-                alertDialogBuilder.setNegativeButton(R.string.alert_dialog_delete_negative, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                AlertDialog.Builder deleteDialogBuilder = new AlertDialog.Builder(getActivity());
+                deleteDialogBuilder.setView(deleteTrainingView);
+                deleteDialogBuilder.setCancelable(true);
 
-                alertDialogBuilder.show();
+                Button positive = deleteTrainingView.findViewById(R.id.dialog_delete_training_yes);
+                Button negative = deleteTrainingView.findViewById(R.id.dialog_delete_training_no);
+
+               final AlertDialog dialogDeleteTraining = deleteDialogBuilder.create();
+
+               positive.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       mTrainingViewModel.deleteTraining(adapter.getTrainingAt(position));
+                       dialogDeleteTraining.dismiss();
+                   }
+               });
+
+               negative.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       dialogDeleteTraining.cancel();
+                   }
+               });
+
+
+               dialogDeleteTraining.show();
 
             }
 
@@ -123,7 +136,7 @@ public class TrainingsRecordsFragment extends Fragment {
                 args.putLong("id", id);
                 fragment.setArguments(args);
                 fragment.show(manager, "ShootListFragment");
-                Toast.makeText(getContext(), R.string.shoots_list_toast, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.shots_list_toast, Toast.LENGTH_SHORT).show();
             }
         });
 

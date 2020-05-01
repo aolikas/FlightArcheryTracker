@@ -36,7 +36,7 @@ public class ShootMapRecyclerViewAdapter extends RecyclerView.Adapter<ShootMapRe
     @Override
     public ShootMapViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_shoot_map, parent, false);
+                .inflate(R.layout.item_shot_map, parent, false);
         return new ShootMapViewHolder(view);
     }
 
@@ -90,8 +90,8 @@ public class ShootMapRecyclerViewAdapter extends RecyclerView.Adapter<ShootMapRe
 
         private ShootMapViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvPosition = itemView.findViewById(R.id.tv_shoot_map_id);
-            tvDistance = itemView.findViewById(R.id.tv_shoot_map_distance);
+            tvPosition = itemView.findViewById(R.id.tv_shot_map_id);
+            tvDistance = itemView.findViewById(R.id.tv_shot_map_distance);
             singleCard = itemView.findViewById(R.id.shoot_map_card_view);
             singleCard.setOnClickListener(this);
         }

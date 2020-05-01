@@ -3,8 +3,21 @@
     <color name="colorPrimary">#7DA7B0</color>
     <color name="colorPrimaryDark">#366E7B</color>
     <color name="colorAccent">#D42626</color>
-    <color name="colorMainButton">#E0F7FA</color>
+
     <color name="colorTextTab">#FFFFFF</color>
-    <color name="colorTextButton">#5C5B5B</color>
-    <color name="colorNewButton">#FADA5E</color>
+
+    <color name="colorNegativeButtonDialog">#B31414</color>
+    <color name="colorPositiveButtonDialog">#474444</color>
+    <color name="colorButtonStroke">#BFC1C1</color>
+    <color name="colorButtonText">#5C5B5B</color>
+    <color name="colorButtonMain">#E0F7FA</color>
+    <color name="colorButtonRipple">#D3D0D0</color>
+    <color name="colorButtonStop">#E8CA57</color>
+
+    <color name="color">#FF5722</color>
+
+    <color name="colorDialogButtonStroke">#366E7B</color>
+    <color name="colorDialogButtonBackground">#E0F7FA</color>
+    <color name="colorDialogButtonAccentText">#366E7B</color>
+    <color name="colorDialogButtonText">#5C5B5B</color>
 </resources>

@@ -140,31 +140,39 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-
             case R.id.delete_all:
                 if (mCondition) {
                     Toast.makeText(this, R.string.toast_before_delete_all, Toast.LENGTH_LONG).show();
                 } else {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-                    alertDialogBuilder.setTitle(R.string.alert_dialog_delete_all_title);
-                    alertDialogBuilder.setMessage(R.string.alert_dialog_delete_all_message);
-                    alertDialogBuilder.setPositiveButton(R.string.alert_dialog_delete_all_positive, new DialogInterface.OnClickListener() {
+
+                    View deleteAllTrainingsView = getLayoutInflater().inflate(R.layout.dialog_delete_all_trainings, new LinearLayout(this), false);
+
+                    AlertDialog.Builder deleteAllDialogBuilder = new AlertDialog.Builder(this);
+                    deleteAllDialogBuilder.setView(deleteAllTrainingsView);
+                    deleteAllDialogBuilder.setCancelable(true);
+
+                    Button deleteAllPositive = deleteAllTrainingsView.findViewById(R.id.dialog_delete_all_trainings_yes);
+                    Button deleteAllNegative = deleteAllTrainingsView.findViewById(R.id.dialog_delete_all_trainings_no);
+
+                    final AlertDialog dialogDeleteAll = deleteAllDialogBuilder.create();
+
+                    deleteAllPositive.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onClick(View v) {
                             mTrainingViewModel.deleteAllTrainings();
+                            dialogDeleteAll.dismiss();
                         }
                     });
 
-                    alertDialogBuilder.setNegativeButton(R.string.alert_dialog_delete_all_negative, new DialogInterface.OnClickListener() {
+                    deleteAllNegative.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
+                        public void onClick(View v) {
+                            dialogDeleteAll.cancel();
                         }
                     });
 
-                    alertDialogBuilder.show();
+                    dialogDeleteAll.show();
                 }
-
                 break;
 
             case R.id.language_english:
@@ -189,26 +197,26 @@ public class MainActivity extends AppCompatActivity
 
                 AlertDialog.Builder feedbackDialogBuilder = new AlertDialog.Builder(this);
                 LayoutInflater inflaterFeedback = getLayoutInflater();
-                View dialogViewFeedback = inflaterFeedback.inflate(R.layout.feedback_message_dialog, new LinearLayout(this));
+                View dialogViewFeedback = inflaterFeedback.inflate(R.layout.dialog_feedback_message, new LinearLayout(this));
                 feedbackDialogBuilder.setView(dialogViewFeedback);
-                Button dismiss = dialogViewFeedback.findViewById(R.id.dialog_feedback_button_dismiss);
-                Button telegram = dialogViewFeedback.findViewById(R.id.dialog_feedback_button_telegram);
-                Button email = dialogViewFeedback.findViewById(R.id.dialog_feedback_button_email);
+                Button feedbackDismiss = dialogViewFeedback.findViewById(R.id.dialog_feedback_button_dismiss);
+                Button feedbackTelegram = dialogViewFeedback.findViewById(R.id.dialog_feedback_button_telegram);
+                Button feedbackEmail = dialogViewFeedback.findViewById(R.id.dialog_feedback_button_email);
 
                 final AlertDialog dialogFeedback = feedbackDialogBuilder.create();
 
-                dismiss.setOnClickListener(new View.OnClickListener() {
+                feedbackDismiss.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialogFeedback.dismiss();
                     }
                 });
 
-                telegram.setOnClickListener(new View.OnClickListener() {
+                feedbackTelegram.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent telegramIntent = new Intent(Intent.ACTION_VIEW);
-                        telegramIntent.setData(Uri.parse("http://telegram.me/"));
+                        telegramIntent.setData(Uri.parse("http://telegram.me/code_aborigene"));
                         try {
                             startActivity(telegramIntent);
                         } catch (Exception e) {
@@ -217,7 +225,7 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
 
-                email.setOnClickListener(new View.OnClickListener() {
+                feedbackEmail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent emailIntent = new Intent(Intent.ACTION_SEND);
@@ -230,21 +238,24 @@ public class MainActivity extends AppCompatActivity
                         }
                     }
                 });
-
                 dialogFeedback.show();
                 break;
 
             case R.id.support_developer:
                 AlertDialog.Builder supportDialogBuilder = new AlertDialog.Builder(this);
                 LayoutInflater inflaterSupport = getLayoutInflater();
-                View dialogViewSupport = inflaterSupport.inflate(R.layout.support_developer_message_dialog, new LinearLayout(this));
+                View dialogViewSupport = inflaterSupport.inflate(R.layout.dialog_support_developer_message, new LinearLayout(this));
                 supportDialogBuilder.setView(dialogViewSupport);
+                supportDialogBuilder.setCancelable(true);
+
+                Button supportPositive = dialogViewSupport.findViewById(R.id.dialog_support_developer_button_paypal);
+                Button supportNegative = dialogViewSupport.findViewById(R.id.dialog_support_developer_button_dismiss);
 
                 final AlertDialog dialogSupport = supportDialogBuilder.create();
 
-                dialogSupport.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.alert_dialog_support_dev_positive), new DialogInterface.OnClickListener() {
+                supportPositive.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
                         Intent paypalIntent = new Intent(Intent.ACTION_VIEW);
                         paypalIntent.setData(Uri.parse("https://paypal.me/aolika"));
                         try {
@@ -255,12 +266,13 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
 
-                dialogSupport.setButton(DialogInterface.BUTTON_NEGATIVE, "Dismiss", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+
+               supportNegative.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       dialogSupport.cancel();
+                   }
+               });
 
                 dialogSupport.show();
                 break;

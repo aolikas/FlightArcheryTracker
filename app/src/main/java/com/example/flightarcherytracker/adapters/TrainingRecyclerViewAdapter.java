@@ -70,8 +70,8 @@ public class TrainingRecyclerViewAdapter extends RecyclerView.Adapter<TrainingRe
             tvDate = itemView.findViewById(R.id.tv_training_date);
             tvId = itemView.findViewById(R.id.tv_training_id);
 
-            TextView showShootRecords = itemView.findViewById(R.id.tv_training_show_shoots);
-            ImageView showShootMapRecords = itemView.findViewById(R.id.iv_training_show_map_shoots);
+            TextView showShootRecords = itemView.findViewById(R.id.tv_training_show_shots);
+            ImageView showShootMapRecords = itemView.findViewById(R.id.iv_training_show_map_shots);
             ImageView deleteTraining = itemView.findViewById(R.id.iv_training_delete);
 
             showShootRecords.setOnClickListener(new View.OnClickListener() {

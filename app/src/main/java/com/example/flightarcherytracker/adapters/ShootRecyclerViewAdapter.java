@@ -23,7 +23,7 @@ public class ShootRecyclerViewAdapter extends RecyclerView.Adapter<ShootRecycler
     @Override
     public ShootViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_shoot, parent, false);
+                .inflate(R.layout.item_shot, parent, false);
         return new ShootViewHolder(itemView);
     }
 
@@ -57,9 +57,9 @@ public class ShootRecyclerViewAdapter extends RecyclerView.Adapter<ShootRecycler
         private ShootViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvPosition = itemView.findViewById(R.id.tv_shoot_id);
-            tvDistance = itemView.findViewById(R.id.tv_shoot_distance);
-            tvDescription = itemView.findViewById(R.id.tv_shoot_description);
+            tvPosition = itemView.findViewById(R.id.tv_shot_id);
+            tvDistance = itemView.findViewById(R.id.tv_shot_distance);
+            tvDescription = itemView.findViewById(R.id.tv_shot_description);
         }
     }
 }

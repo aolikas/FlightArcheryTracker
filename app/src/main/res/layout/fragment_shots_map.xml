@@ -6,12 +6,12 @@
     tools:context=".fragments.ShootsMapFragment">
 
     <com.google.android.gms.maps.MapView
-        android:id="@+id/map_view_shoots"
+        android:id="@+id/map_view_shots"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_shoots_map_rv"
+        android:id="@+id/fragment_shots_map_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom" />
