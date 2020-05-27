@@ -53,7 +53,7 @@ public class TrainingsSessionCountTest {
         //test if the fragment is or not
 
         getInstrumentation().waitForIdleSync();
-        View buttonStart = fragment.getView().findViewById(R.id.btn_start_training);
+        View buttonStart = Objects.requireNonNull(fragment.getView()).findViewById(R.id.btn_start_training);
         View buttonSave = fragment.getView().findViewById(R.id.btn_save_shoots);
 
         assertNotNull(buttonStart);

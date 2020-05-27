@@ -13,12 +13,12 @@ public class CalculateDistanceBetweenMarkersTest {
     private CalculateDistanceBetweenMarkers testClass;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         testClass = new CalculateDistanceBetweenMarkers();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown(){
         testClass = null;
     }
 

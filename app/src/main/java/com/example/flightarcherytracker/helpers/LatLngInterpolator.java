@@ -17,7 +17,6 @@ public interface LatLngInterpolator {
     LatLng interpolate(float fraction, LatLng a, LatLng b);
 
     class Spherical implements LatLngInterpolator {
-        public static final String TAG = "LatLngInterpolator";
 
         @Override
         public LatLng interpolate(float fraction, LatLng from, LatLng to) {

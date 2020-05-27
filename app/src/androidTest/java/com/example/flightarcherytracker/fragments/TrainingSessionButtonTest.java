@@ -1,7 +1,6 @@
 package com.example.flightarcherytracker.fragments;
 
-import androidx.test.espresso.ViewAction;
-import androidx.test.espresso.action.ViewActions;
+
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -24,7 +23,7 @@ import static org.hamcrest.core.IsNot.not;
 
 
 @RunWith(AndroidJUnit4.class)
-public class TrainingSessionTest {
+public class TrainingSessionButtonTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule =
@@ -37,25 +36,34 @@ public class TrainingSessionTest {
     }
 
     @Test
-    public void TestButtonVisibilityClickable() {
+    public void TestButtonVisibility() {
         onView(withId(R.id.btn_start_training))
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
         onView(withId(R.id.btn_save_shoots))
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
 
+        onView(withId(R.id.btn_stop_training))
+                .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
+
         onView(withId(R.id.btn_start_training)).check(matches(isDisplayed()));
 
         onView(withId(R.id.btn_save_shoots)).check(matches(not(isDisplayed())));
 
-        onView(withId(R.id.btn_start_training)).perform(click()).check(matches(isDisplayed()));
+        onView(withId(R.id.btn_stop_training)).check(matches(not(isDisplayed())));
+
+        onView(withId(R.id.btn_start_training)).perform(click());
 
 
         onView(withId(R.id.btn_save_shoots))
                 .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
+        onView(withId(R.id.btn_stop_training))
+                .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+
         onView(withId(R.id.btn_save_shoots)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.btn_save_shoots)).perform(click());
+        onView(withId(R.id.btn_stop_training)).check(matches(isDisplayed()));
+
     }
 }

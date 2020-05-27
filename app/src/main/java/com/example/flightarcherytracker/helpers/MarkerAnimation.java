@@ -2,7 +2,7 @@ package com.example.flightarcherytracker.helpers;
 
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
+
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 
@@ -11,14 +11,9 @@ import com.google.android.gms.maps.model.Marker;
 
 
 public class MarkerAnimation {
-
-    private static final String TAG = "Marker Animation TEST";
-
     public static void animateMarkerToGB(final Marker marker, final LatLng finalPosition,
                                          final LatLngInterpolator latLngInterpolator) {
         final LatLng startPosition = marker.getPosition();
-
-        Log.d(TAG, "animateMarkerToGB: start position: " + startPosition);
         final Handler handler = new Handler();
         final long start = SystemClock.uptimeMillis();
         final Interpolator interpolator = new AccelerateDecelerateInterpolator();

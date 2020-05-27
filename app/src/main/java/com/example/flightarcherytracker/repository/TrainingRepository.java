@@ -2,7 +2,6 @@ package com.example.flightarcherytracker.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -13,7 +12,6 @@ import com.example.flightarcherytracker.entity.Training;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-import static android.content.ContentValues.TAG;
 
 public class TrainingRepository {
 
@@ -41,7 +39,6 @@ public class TrainingRepository {
             e.printStackTrace();
         }
 
-        Log.d(TAG, String.valueOf(rowId));
         return rowId;
     }
 

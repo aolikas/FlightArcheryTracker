@@ -18,6 +18,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Objects;
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 
@@ -67,26 +69,46 @@ public class RecyclerViewRecordsTest {
     }
 
     @Test
-    public void clickItemPositionTest() {
+    public void clickShowShotsTest() {
 
         onView(withText("Records"))
                 .perform(ViewActions.click());
 
-        onView(withId(R.id.fragment_records_rv)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.tv_training_show_shots)));
+        onView(allOf(
+                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
+                withId(R.id.fragment_records_rv)))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.tv_training_show_shots)));
 
-        onView(withId(R.id.fragment_records_rv)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.iv_training_show_map_shots)));
-
-        onView(withId(R.id.fragment_records_rv)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.iv_training_delete)));
     }
+
+    @Test
+    public void clickShowMapShotsTest() {
+        onView(withText("Records"))
+                .perform(ViewActions.click());
+
+        onView(allOf(
+                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
+                withId(R.id.fragment_records_rv)))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.iv_training_show_map_shots)));
+    }
+
+    @Test
+    public void clickDeleteTrainingTest() {
+        onView(withText("Records"))
+                .perform(ViewActions.click());
+        onView(allOf(
+                withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
+                withId(R.id.fragment_records_rv)))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, MyViewAction.clickChildViewWithId(R.id.iv_training_delete)));
+
+    }
+
 
     @Test
     public void scrollToEnd() {
 
         RecyclerView recyclerView = mActivityTestRule.getActivity().findViewById(R.id.fragment_records_rv);
-        int itemCount = recyclerView.getAdapter().getItemCount();
+        int itemCount = Objects.requireNonNull(recyclerView.getAdapter()).getItemCount();
 
         onView(withText("Records"))
                 .perform(ViewActions.click());

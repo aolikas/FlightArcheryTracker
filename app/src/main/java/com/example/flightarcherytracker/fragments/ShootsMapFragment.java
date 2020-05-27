@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +41,7 @@ import java.util.Objects;
 public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
         View.OnClickListener {
 
-    private static final String TAG = "ShowShootsOnMapFragment";
+
 
     // private ShootViewModel mShootViewModel;
     private static final String MAPVIEW_BUNDLE_KEY_SHOW = "MapViewBundleKeyShow";
@@ -171,7 +171,6 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d(TAG, "Training: onSaveInstanceState");
 
         Bundle mapViewBundle = outState.getBundle(MAPVIEW_BUNDLE_KEY_SHOW);
         if (mapViewBundle == null) {
@@ -194,7 +193,6 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "Training: onResume");
         mMapView.onResume();
         mLayout.setVisibility(View.VISIBLE);
     }
@@ -202,7 +200,6 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onStart() {
         super.onStart();
-        Log.d(TAG, "Training: onStart");
         mMapView.onStart();
 
     }
@@ -210,7 +207,6 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onStop() {
         super.onStop();
-        Log.d(TAG, "Training: onStop");
         mMapView.onStop();
         mLayout.setVisibility(View.INVISIBLE);
 
@@ -220,7 +216,6 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "Training: onStop");
         mMapView.onPause();
         mLayout.setVisibility(View.INVISIBLE);
     }
@@ -228,7 +223,6 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "Training: onDestroy");
         mMapView.onDestroy();
         mMap = null;
         mLayout.setVisibility(View.INVISIBLE);
@@ -238,7 +232,6 @@ public class ShootsMapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        Log.d(TAG, "Training: onLowMemory");
         mMapView.onLowMemory();
     }
 }

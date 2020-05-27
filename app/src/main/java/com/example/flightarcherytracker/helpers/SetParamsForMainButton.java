@@ -1,9 +1,5 @@
 package com.example.flightarcherytracker.helpers;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.RippleDrawable;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;

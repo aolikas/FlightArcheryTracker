@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Looper;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,8 +64,6 @@ import java.util.Objects;
  */
 public class TrainingsSessionFragment extends Fragment implements OnMapReadyCallback, View.OnClickListener {
 
-    private static final String TAG = "TrainingSessionFragment";
-
     private static final int ERROR_DIALOG_REQUEST = 9001;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 9002;
     private static final int PERMISSIONS_REQUEST_ENABLE_GPS = 9003;
@@ -105,7 +102,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        Log.d(TAG, "TrainingSession: onCreate");
     }
 
     @Nullable
@@ -113,7 +109,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.d(TAG, "TrainingSession: onCreateView");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_trainings_session, container, false);
 
@@ -156,7 +151,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
         }
-        Log.d(TAG, "TrainingSession: onInitMap");
         mMapView.onCreate(mapViewBundle);
         mMapView.getMapAsync(this);
     }
@@ -171,7 +165,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
         //  }
 
         mMap = googleMap;
-        Log.d(TAG, "TrainingSession: onMapReady");
         mMap.setMyLocationEnabled(false);
         mMap.getUiSettings().setCompassEnabled(true);
 
@@ -180,7 +173,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d(TAG, "Training: onSaveInstanceState");
 
         Bundle mapViewBundle = outState.getBundle(MAP_VIEW_BUNDLE_KEY);
         if (mapViewBundle == null) {
@@ -199,15 +191,10 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                 return;
             mCurrentLocation = locationResult.getLastLocation();
 
-            Log.d(TAG, "LocationCallback: " + mCurrentLocation.getLatitude()
-                    + mCurrentLocation.getLongitude());
-
             if (mFirstTimeFlag && mMap != null) {
-                Log.d(TAG, "LocationCallback: map is not null");
                 animateCamera(mCurrentLocation);
                 mFirstTimeFlag = false;
             }
-            Log.d(TAG, "TrainingSession: onShowMarker");
             showMarker(mCurrentLocation);
         }
     };
@@ -225,15 +212,13 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
             return;
         }
-        Log.d(TAG, "TrainingSession: onStartCurrentLocationUpdates");
+
         mFusedLocationClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper());
     }
 
 
     // get start/new location for training
     private void getTrainingStartLocation() {
-        Log.d(TAG, "onGetTrainingStartLocation: getting the device current location");
-
         mMap.clear();
 
         mStartLat = mCurrentLocation.getLatitude();
@@ -244,17 +229,12 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                 .title(getString(R.string.marker_start_title))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
+
         animateCamera(mCurrentLocation);
 
         mCurrentLocationMarker = mMap.addMarker(getMarker(mStartLng, mStartLng));
 
-        Log.d(TAG, "getTrainingStartLocation: animateCamera with start: " + mStartLat + " "
-                + mStartLng);
-
         mTrainingListener.onTrainingInputListener(new Date(), mStartLat, mStartLng);
-
-        Log.d(TAG, "onCompleteTrainingStartLocation: training start location: lat: " + mStartLat +
-                ", lng: " + mStartLng);
 
     }
 
@@ -267,8 +247,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
     private void getShootsLocation() {
 
-        Log.d(TAG, "getShootsLocation: getting shoots location");
-
         double shootLat = mCurrentLocation.getLatitude();
         double shootLng = mCurrentLocation.getLongitude();
 
@@ -280,10 +258,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                 .position(new LatLng(shootLat, shootLng))
                 .title(getString(R.string.marker_shot_part1) + mShootCount + getString(R.string.marker_shot_part_2) + Double.parseDouble(df.format(distance)))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-
-
-        Log.d(TAG, "onCompleteShoot: latitude: + " + shootLat +
-                "longitude: " + shootLng);
 
         animateCamera(mCurrentLocation);
 
@@ -314,8 +288,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
                 String description = mShootDescriptionEt.getText().toString();
                 mShootsListener.onShootsInputListener(lat, lng, description,
                         distance);
-
-                Log.d(TAG, "sendShoots: " + lat + " " + lng);
                 saveShootDialog.dismiss();
             }
         });
@@ -340,7 +312,7 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
     @NonNull
     private CameraPosition getCameraPositionWithBearing(LatLng latLng) {
-        return new CameraPosition.Builder().target(latLng).zoom(20).bearing(180).tilt(45).build();
+        return new CameraPosition.Builder().target(latLng).zoom(100).bearing(180).tilt(30).build();
     }
 
     private void showMarker(@NonNull Location currentLocation) {
@@ -360,8 +332,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
 
                 mShootCount = 0;
                 if (mMap != null && mCurrentLocation != null) {
-                    Log.d(TAG, "onClick training location: " + mCurrentLocation.getLatitude()
-                            + mCurrentLocation.getLongitude());
                     getTrainingStartLocation();
                 }
                 //changes params for buttons two instead of one
@@ -488,7 +458,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        Log.d(TAG, "Training: onAttach");
         if (context instanceof TrainingListener) {
             mTrainingListener = (TrainingListener) context;
         } else {
@@ -513,7 +482,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.d(TAG, "Training: onDetach");
         mTrainingListener = null;
         mShootsListener = null;
         mButtonListener = null;
@@ -522,7 +490,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: is called");
         if (requestCode == PERMISSIONS_REQUEST_ENABLE_GPS) {
             mFusedLocationClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getActivity()));
             startCurrentLocationUpdates();
@@ -552,17 +519,13 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     }
 
     private boolean isServicesOk() {
-        Log.d(TAG, "isServicesOk: checking google services version");
-
         int status = GoogleApiAvailability.getInstance()
                 .isGooglePlayServicesAvailable(getActivity());
         if (status == ConnectionResult.SUCCESS) {
             //everything is fine and the user can make map request
-            Log.d(TAG, "isServicesOk: Google paly services is working");
             return true;
         } else if (GoogleApiAvailability.getInstance().isUserResolvableError(status)) {
             // an error is happened but still resolving
-            Log.d(TAG, "isServicesOk: an error is happened but still resolving");
             Dialog dialog = GoogleApiAvailability.getInstance()
                     .getErrorDialog(getActivity(), status, ERROR_DIALOG_REQUEST);
             dialog.show();
@@ -573,7 +536,6 @@ public class TrainingsSessionFragment extends Fragment implements OnMapReadyCall
     }
 
     private boolean isMapEnabled() {
-        Log.d(TAG, "isMapEnabled: checking map is enabled");
         final LocationManager manager =
                 (LocationManager) Objects.requireNonNull(getActivity()).getSystemService(Context.LOCATION_SERVICE);
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {

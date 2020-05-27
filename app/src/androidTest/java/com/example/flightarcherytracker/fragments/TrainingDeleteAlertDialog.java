@@ -18,11 +18,9 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
-import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -56,7 +54,7 @@ public class TrainingDeleteAlertDialog {
     }
 
     @Test
-    public void testClickPositiveButton() {
+    public void testClickYesButton() {
 
         onView(withText("Records"))
                 .perform(ViewActions.click());
@@ -65,15 +63,15 @@ public class TrainingDeleteAlertDialog {
                 RecyclerViewActions.actionOnItemAtPosition
                         (0, MyViewAction.clickChildViewWithId(R.id.iv_training_delete)));
 
-        onView(withId(android.R.id.button1))
+
+        onView(withText(R.string.alert_dialog_delete_positive))
                 .inRoot(isDialog())
-                .check(matches(withText(R.string.alert_dialog_delete_positive)))
-                .check(matches(isDisplayed()));
-        onView(withId(android.R.id.button1)).perform(click());
+                .check(matches(isDisplayed()))
+                .perform(click());
     }
 
     @Test
-    public void testClickCancelButton() {
+    public void testClickNoButton() {
 
         onView(withText("Records"))
                 .perform(ViewActions.click());
@@ -82,11 +80,10 @@ public class TrainingDeleteAlertDialog {
                 RecyclerViewActions.actionOnItemAtPosition
                         (0, MyViewAction.clickChildViewWithId(R.id.iv_training_delete)));
 
-        onView(withId(android.R.id.button2))
+        onView(withText(R.string.alert_dialog_delete_negative))
                 .inRoot(isDialog())
-                .check(matches(withText(R.string.alert_dialog_delete_negative)))
-                .check(matches(isDisplayed()));
-        onView(withId(android.R.id.button2)).perform(click());
+                .check(matches(isDisplayed()))
+                .perform(click());
     }
 
     @After

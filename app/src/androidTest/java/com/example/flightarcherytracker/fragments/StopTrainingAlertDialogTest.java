@@ -1,17 +1,7 @@
 package com.example.flightarcherytracker.fragments;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-
 import androidx.test.rule.ActivityTestRule;
-
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.isDialog;
-
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import com.example.flightarcherytracker.MainActivity;
 import com.example.flightarcherytracker.R;
@@ -21,8 +11,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.RootMatchers.isDialog;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
 @RunWith(AndroidJUnit4.class)
-public class ShootSaveAlertDialogTest {
+public class StopTrainingAlertDialogTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule =
@@ -40,39 +38,39 @@ public class ShootSaveAlertDialogTest {
         onView(withId(R.id.btn_start_training)).check(matches(isDisplayed()));
         onView(withId(R.id.btn_start_training)).perform(click());
 
-        onView(withId(R.id.btn_save_shoots)).check(matches(isDisplayed()));
-        onView(withId(R.id.btn_save_shoots)).perform(click());
+        onView(withId(R.id.btn_stop_training)).check(matches(isDisplayed()));
+        onView(withId(R.id.btn_stop_training)).perform(click());
 
-        onView(withText(R.string.dialog_shoot_message_title))
+        onView(withText(R.string.alert_dialog_stop_training_title))
                 .inRoot(isDialog())
                 .check(matches(isDisplayed()));
     }
 
     @Test
-    public void testClickSaveButton() {
+    public void testClickYesButton() {
 
         onView(withId(R.id.btn_start_training)).check(matches(isDisplayed()));
         onView(withId(R.id.btn_start_training)).perform(click());
 
-        onView(withId(R.id.btn_save_shoots)).check(matches(isDisplayed()));
-        onView(withId(R.id.btn_save_shoots)).perform(click());
+        onView(withId(R.id.btn_stop_training)).check(matches(isDisplayed()));
+        onView(withId(R.id.btn_stop_training)).perform(click());
 
-        onView(withText(R.string.dialog_shoot_message_positive))
+        onView(withText(R.string.alert_dialog_stop_training_positive))
                 .inRoot(isDialog())
                 .check(matches(isDisplayed()))
                 .perform(click());
     }
 
     @Test
-    public void testClickCancelButton() {
+    public void testClickNoButton() {
 
         onView(withId(R.id.btn_start_training)).check(matches(isDisplayed()));
         onView(withId(R.id.btn_start_training)).perform(click());
 
-        onView(withId(R.id.btn_save_shoots)).check(matches(isDisplayed()));
-        onView(withId(R.id.btn_save_shoots)).perform(click());
+        onView(withId(R.id.btn_stop_training)).check(matches(isDisplayed()));
+        onView(withId(R.id.btn_stop_training)).perform(click());
 
-        onView(withText(R.string.dialog_shoot_message_negative))
+        onView(withText(R.string.alert_dialog_stop_training_negative))
                 .inRoot(isDialog())
                 .check(matches(isDisplayed()))
                 .perform(click());

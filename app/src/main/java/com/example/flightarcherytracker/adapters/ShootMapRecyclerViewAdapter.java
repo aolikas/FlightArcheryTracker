@@ -1,6 +1,6 @@
 package com.example.flightarcherytracker.adapters;
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +25,6 @@ import java.util.List;
 
 
 public class ShootMapRecyclerViewAdapter extends RecyclerView.Adapter<ShootMapRecyclerViewAdapter.ShootMapViewHolder> {
-
-    private static final String TAG = "ADAPTER";
 
     private List<Shoot> mShoots = new ArrayList<>();
     private GoogleMap mMap;
@@ -53,7 +51,7 @@ public class ShootMapRecyclerViewAdapter extends RecyclerView.Adapter<ShootMapRe
         holder.setClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Log.d(TAG, "onClick: ");
+
 
                 final double lat = currentShoot.getShootLat();
                 final double lng = currentShoot.getShootLng();
@@ -85,14 +83,13 @@ public class ShootMapRecyclerViewAdapter extends RecyclerView.Adapter<ShootMapRe
 
         private TextView tvPosition;
         private TextView tvDistance;
-        private CardView singleCard;
         ItemClickListener clickListener;
 
         private ShootMapViewHolder(@NonNull View itemView) {
             super(itemView);
             tvPosition = itemView.findViewById(R.id.tv_shot_map_id);
             tvDistance = itemView.findViewById(R.id.tv_shot_map_distance);
-            singleCard = itemView.findViewById(R.id.shoot_map_card_view);
+            CardView singleCard = itemView.findViewById(R.id.shoot_map_card_view);
             singleCard.setOnClickListener(this);
         }
 

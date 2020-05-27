@@ -1,11 +1,8 @@
 package com.example.flightarcherytracker;
 
-
 import androidx.test.espresso.NoMatchingViewException;
-
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
-
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +23,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
-public class AlertDialogDeleteAllTest {
+public class AlertDialogFeedbackTest {
 
     private MainActivity mActivity;
 
@@ -44,43 +41,58 @@ public class AlertDialogDeleteAllTest {
     public void testCheckDialogDisplayed() {
 
         try {
-            onView(withId(R.id.delete_all)).perform(click());
+            onView(withId(R.id.feedback)).perform(click());
         } catch (NoMatchingViewException e) {
             openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-            onView(withText(R.string.menu_main_delete_all)).perform(click());
+            onView(withText(R.string.menu_main_feedback)).perform(click());
         }
 
-        onView(withText(R.string.alert_dialog_delete_all_title))
+        onView(withText(R.string.alert_dialog_feedback_title))
                 .inRoot(isDialog())
                 .check(matches(isDisplayed()));
     }
 
     @Test
-    public void testClickPositiveButton() {
+    public void testClickEmailButton() {
 
         try {
-            onView(withId(R.id.delete_all)).perform(click());
+            onView(withId(R.id.feedback)).perform(click());
         } catch (NoMatchingViewException e) {
             openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-            onView(withText(R.string.menu_main_delete_all)).perform(click());
+            onView(withText(R.string.menu_main_feedback)).perform(click());
         }
 
-        onView(withText(R.string.alert_dialog_delete_all_positive))
+        onView(withText(R.string.alert_dialog_feedback_button_email))
                 .inRoot(isDialog())
                 .check(matches(isDisplayed()));
     }
 
     @Test
-    public void testClickCancelButton() {
+    public void testClickTelegramButton() {
 
         try {
-            onView(withId(R.id.delete_all)).perform(click());
+            onView(withId(R.id.feedback)).perform(click());
         } catch (NoMatchingViewException e) {
             openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-            onView(withText(R.string.menu_main_delete_all)).perform(click());
+            onView(withText(R.string.menu_main_feedback)).perform(click());
         }
 
-        onView(withText(R.string.alert_dialog_delete_all_negative))
+        onView(withText(R.string.alert_dialog_feedback_button_telegram))
+                .inRoot(isDialog())
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testClickDismissButton() {
+
+        try {
+            onView(withId(R.id.feedback)).perform(click());
+        } catch (NoMatchingViewException e) {
+            openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+            onView(withText(R.string.menu_main_feedback)).perform(click());
+        }
+
+        onView(withText(R.string.alert_dialog_feedback_button_dismiss))
                 .inRoot(isDialog())
                 .check(matches(isDisplayed()));
     }

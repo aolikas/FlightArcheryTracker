@@ -1,7 +1,6 @@
 package com.example.flightarcherytracker.fragments;
 
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -12,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +32,6 @@ import java.util.Objects;
  */
 public class TrainingsRecordsFragment extends Fragment {
 
-    private static final String TAG = "TrainingsRecordFragment";
-
     private TrainingViewModel mTrainingViewModel;
 
     public TrainingsRecordsFragment() {
@@ -45,7 +42,7 @@ public class TrainingsRecordsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG, "TrainingRecords: onCreateView");
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_trainings_records, container, false);
 
@@ -86,7 +83,7 @@ public class TrainingsRecordsFragment extends Fragment {
                         .replace(R.id.container_records, fragment, "ShowOnMapFragment")
                         .addToBackStack(null)
                         .commit();
-                Log.d(TAG, "onShowMapTrainingClick: " + id);
+
             }
 
             @Override

@@ -69,7 +69,6 @@ public class RecyclerViewShootsTest {
     @Test
     public void scrollRecyclerToEnd() {
 
-
         onView(withText("Records"))
                 .perform(ViewActions.click());
 
@@ -80,7 +79,6 @@ public class RecyclerViewShootsTest {
                 .perform(RecyclerViewActions.scrollToPosition(2));
 
     }
-
 
     @After
     public void tearDown() {

@@ -1,6 +1,6 @@
 package com.example.flightarcherytracker.adapters;
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +20,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class TrainingRecyclerViewAdapter extends RecyclerView.Adapter<TrainingRecyclerViewAdapter.TrainingViewHolder> {
-
-    private static final String TAG = "TrainingRecyclerAdapter";
 
     private List<Training> mTrainings = new ArrayList<>();
     private TrainingDetailAdapterListener mListener;
@@ -77,7 +75,6 @@ public class TrainingRecyclerViewAdapter extends RecyclerView.Adapter<TrainingRe
             showShootRecords.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(TAG, "onSeeShootsRecords: Clicked!");
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
@@ -90,7 +87,6 @@ public class TrainingRecyclerViewAdapter extends RecyclerView.Adapter<TrainingRe
             showShootMapRecords.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(TAG, "onShowMapClick: Clicked!");
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
@@ -103,7 +99,6 @@ public class TrainingRecyclerViewAdapter extends RecyclerView.Adapter<TrainingRe
             deleteTraining.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(TAG, "onDeleteTrainingClick: Clicked!");
                     if (listener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {

@@ -18,7 +18,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -108,7 +107,6 @@ public class MainActivity extends AppCompatActivity
 
         trainingId = mTrainingViewModel.insertTrainingWithId(currentTraining);
 
-        Log.d(TAG, "onTrainingInputListener: insert " + timestamp + " " + lat + " " + lng);
     }
 
     @Override
@@ -117,16 +115,11 @@ public class MainActivity extends AppCompatActivity
         Shoot currentShoot = new Shoot(lat, lng, description, distance, trainingId);
 
         mShootViewModel.insertShoot(currentShoot);
-
-        Log.d(TAG, "onShootsInputListener: inset " + description + " " + lat + " " + lng
-                + " " + distance + " " + trainingId);
     }
 
     @Override
     public void shareCondition(boolean condition) {
-        Log.d(TAG, "shareCondition: first " + mCondition);
         mCondition = condition;
-        Log.d(TAG, "shareCondition: " + mCondition);
     }
 
     @Override
@@ -261,7 +254,7 @@ public class MainActivity extends AppCompatActivity
                         try {
                             startActivity(paypalIntent);
                         } catch (Exception e) {
-                            Log.d(TAG, "support dev " + e.toString());
+                            e.printStackTrace();
                         }
                     }
                 });
